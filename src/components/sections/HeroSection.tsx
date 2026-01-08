@@ -27,7 +27,7 @@ const HeroSection = () => {
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   const { data: heroContent, isLoading } = useQuery({
     queryKey: ["hero-content"],
@@ -101,10 +101,23 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, [allImages.length, transitionTime]);
 
+  // Parallax effect on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Calculate parallax transform - image moves slower than scroll
+  const parallaxOffset = scrollY * 0.4;
+
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Images with smooth crossfade and Ken Burns effect */}
-      <div className="absolute inset-0 z-0 bg-secondary">
+      {/* Background Images with parallax, smooth crossfade and Ken Burns effect */}
+      <div className="absolute inset-0 z-0 bg-secondary overflow-hidden">
         {allImages.map((img, index) => {
           const isActive = index === currentImageIndex;
           const isPrev = index === (currentImageIndex - 1 + allImages.length) % allImages.length;
@@ -118,13 +131,16 @@ const HeroSection = () => {
                     ? "opacity-100 z-[1]" 
                     : "opacity-0 z-0"
               }`}
+              style={{
+                transform: `translateY(${parallaxOffset}px)`,
+              }}
             >
               <img
                 src={img}
                 alt="LF Fretes e Mudanças"
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
-                className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${
+                className={`absolute inset-[-20%] w-[140%] h-[140%] object-cover transition-transform duration-[10000ms] ease-out ${
                   isActive 
                     ? "scale-105" 
                     : "scale-100"
@@ -133,7 +149,10 @@ const HeroSection = () => {
             </div>
           );
         })}
-        <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/85 to-secondary/50 z-10" />
+        <div 
+          className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/85 to-secondary/50 z-10" 
+          style={{ transform: `translateY(${parallaxOffset}px)` }}
+        />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
