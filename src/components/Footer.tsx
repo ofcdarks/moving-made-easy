@@ -80,14 +80,14 @@ const Footer = () => {
     }
   };
 
-  const phone = settings?.phone || WHATSAPP_PHONE_DISPLAY;
+  const phone = settings?.whatsapp_display || WHATSAPP_PHONE_DISPLAY;
   const email = settings?.email || "contato@fretesembauru.com.br";
   const address = settings?.address || "Bauru, SP - Atendemos toda a região";
-  const hours = settings?.hours || "Seg - Sáb: 07:00 - 19:00";
+  const hours = settings?.business_hours || "Seg - Sáb: 07:00 - 19:00";
   const companyName = settings?.company_name || "LF Fretes e Mudanças";
-  const tagline = settings?.tagline || "Sua mudança em boas mãos. Oferecemos serviços de fretes e mudanças com segurança, pontualidade e o melhor custo-benefício do mercado.";
+  const tagline = settings?.slogan || "Sua mudança em boas mãos. Oferecemos serviços de fretes e mudanças com segurança, pontualidade e o melhor custo-benefício do mercado.";
   const region = settings?.region || "Atendemos Bauru e região";
-
+  const cnpj = settings?.cnpj;
   return (
     <footer className="bg-secondary text-secondary-foreground">
       <div className="container mx-auto px-4 py-16">
@@ -186,32 +186,39 @@ const Footer = () => {
 
         {/* Bottom section with policies */}
         <div className="border-t border-secondary-foreground/10 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-secondary-foreground/60">
-              © {currentYear} {companyName}. Todos os direitos reservados.
-            </p>
-            <div className="flex items-center gap-6">
-              <Link
-                to="/politica-de-privacidade"
-                className="text-sm text-secondary-foreground/60 hover:text-primary transition-colors"
-              >
-                Política de Privacidade
-              </Link>
-              <Link
-                to="/politica-de-cookies"
-                className="text-sm text-secondary-foreground/60 hover:text-primary transition-colors"
-              >
-                Política de Cookies
-              </Link>
-              {isAdmin && (
+          <div className="flex flex-col gap-4">
+            {cnpj && (
+              <p className="text-sm text-secondary-foreground/60 text-center md:text-left">
+                CNPJ: {cnpj}
+              </p>
+            )}
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <p className="text-sm text-secondary-foreground/60">
+                © {currentYear} {companyName}. Todos os direitos reservados.
+              </p>
+              <div className="flex items-center gap-6 flex-wrap justify-center">
                 <Link
-                  to="/admin"
-                  className="flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors"
+                  to="/politica-de-privacidade"
+                  className="text-sm text-secondary-foreground/60 hover:text-primary transition-colors"
                 >
-                  <Settings className="w-4 h-4" />
-                  Painel Admin
+                  Política de Privacidade
                 </Link>
-              )}
+                <Link
+                  to="/politica-de-cookies"
+                  className="text-sm text-secondary-foreground/60 hover:text-primary transition-colors"
+                >
+                  Política de Cookies
+                </Link>
+                {isAdmin && (
+                  <Link
+                    to="/admin"
+                    className="flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors"
+                  >
+                    <Settings className="w-4 h-4" />
+                    Painel Admin
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </div>

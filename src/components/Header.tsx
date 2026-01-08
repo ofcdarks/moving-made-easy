@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Home, Info, Briefcase, Images, MessageSquare, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoFull from "@/assets/logo-full.png";
 import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
@@ -20,13 +20,25 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Block body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   const navLinks = [
-    { href: "/", label: "Início" },
-    { href: "/sobre", label: "Sobre Nós" },
-    { href: "/servicos", label: "Serviços" },
-    { href: "/galeria", label: "Galeria" },
-    { href: "/contato", label: "Contato" },
-    { href: "/orcamento", label: "Orçamento" },
+    { href: "/", label: "Início", icon: Home },
+    { href: "/sobre", label: "Sobre Nós", icon: Info },
+    { href: "/servicos", label: "Serviços", icon: Briefcase },
+    { href: "/galeria", label: "Galeria", icon: Images },
+    { href: "/contato", label: "Contato", icon: MessageSquare },
+    { href: "/orcamento", label: "Orçamento", icon: FileText },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -41,12 +53,12 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 sm:px-6">
         <nav className="flex items-center justify-between h-16 sm:h-20">
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center z-50">
             <img 
               src={logoFull} 
               alt="LF Fretes e Mudanças" 
               className={`h-8 sm:h-10 md:h-12 w-auto transition-all duration-300 ${
-                isScrolled ? "" : "brightness-0 invert"
+                isScrolled || isMobileMenuOpen ? "" : "brightness-0 invert"
               }`}
             />
           </Link>
@@ -88,7 +100,13 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className={`lg:hidden p-2 transition-colors ${isScrolled ? "text-foreground" : "text-white"}`}
+            className={`lg:hidden p-2 z-50 rounded-lg transition-all ${
+              isMobileMenuOpen 
+                ? "bg-muted text-foreground" 
+                : isScrolled 
+                  ? "text-foreground" 
+                  : "text-white"
+            }`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -100,43 +118,64 @@ const Header = () => {
           </button>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Overlay */}
         <div 
-          className={`lg:hidden fixed inset-x-0 top-16 sm:top-20 bottom-0 bg-background/98 backdrop-blur-md transition-all duration-300 ${
+          className={`lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 z-40 ${
             isMobileMenuOpen 
               ? "opacity-100 pointer-events-auto" 
               : "opacity-0 pointer-events-none"
           }`}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+
+        {/* Mobile Menu Panel */}
+        <div 
+          className={`lg:hidden fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-background shadow-2xl z-40 transition-transform duration-300 ease-out ${
+            isMobileMenuOpen 
+              ? "translate-x-0" 
+              : "translate-x-full"
+          }`}
         >
-          <ul className="flex flex-col py-4 h-full overflow-y-auto">
-            {navLinks.map((link, index) => (
-              <li 
-                key={link.href}
-                className={`transform transition-all duration-300 ${
-                  isMobileMenuOpen 
-                    ? "translate-x-0 opacity-100" 
-                    : "translate-x-4 opacity-0"
-                }`}
-                style={{ transitionDelay: isMobileMenuOpen ? `${index * 50}ms` : '0ms' }}
-              >
-                <Link
-                  to={link.href}
-                  className={`block px-6 py-4 text-lg font-medium transition-colors active:bg-muted ${
-                    isActive(link.href) ? "text-primary bg-primary/5" : "text-foreground"
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            <li 
-              className={`px-4 pt-6 mt-auto pb-safe transform transition-all duration-300 ${
+          <div className="flex flex-col h-full pt-20 pb-6">
+            {/* Navigation Links */}
+            <ul className="flex-1 px-4 space-y-1 overflow-y-auto">
+              {navLinks.map((link, index) => {
+                const Icon = link.icon;
+                return (
+                  <li 
+                    key={link.href}
+                    className={`transform transition-all duration-300 ${
+                      isMobileMenuOpen 
+                        ? "translate-x-0 opacity-100" 
+                        : "translate-x-8 opacity-0"
+                    }`}
+                    style={{ transitionDelay: isMobileMenuOpen ? `${index * 50 + 100}ms` : '0ms' }}
+                  >
+                    <Link
+                      to={link.href}
+                      className={`flex items-center gap-4 px-4 py-4 rounded-xl text-base font-medium transition-all ${
+                        isActive(link.href) 
+                          ? "text-primary bg-primary/10" 
+                          : "text-foreground hover:bg-muted"
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <Icon className={`w-5 h-5 ${isActive(link.href) ? "text-primary" : "text-muted-foreground"}`} />
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {/* CTA Button */}
+            <div 
+              className={`px-4 pt-4 border-t border-border mt-auto transform transition-all duration-300 ${
                 isMobileMenuOpen 
                   ? "translate-y-0 opacity-100" 
                   : "translate-y-4 opacity-0"
               }`}
-              style={{ transitionDelay: isMobileMenuOpen ? `${navLinks.length * 50}ms` : '0ms' }}
+              style={{ transitionDelay: isMobileMenuOpen ? `${navLinks.length * 50 + 150}ms` : '0ms' }}
             >
               <a
                 href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
@@ -146,13 +185,13 @@ const Header = () => {
                   setIsMobileMenuOpen(false);
                 }}
               >
-                <Button variant="default" size="lg" className="w-full gap-2 bg-gradient-orange py-6 text-base">
+                <Button variant="default" size="lg" className="w-full gap-2 bg-gradient-orange py-6 text-base shadow-orange">
                   <Phone className="w-5 h-5" />
-                  Solicitar Orçamento Grátis
+                  Solicitar Orçamento
                 </Button>
               </a>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
     </header>
