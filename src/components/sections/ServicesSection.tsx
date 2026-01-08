@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
+import AnimatedCard from "@/components/AnimatedCard";
 
 const iconMap: Record<string, LucideIcon> = {
   Home,
@@ -79,31 +80,30 @@ const ServicesSection = () => {
               const IconComponent = iconMap[service.icon || "Truck"] || Truck;
               const imageUrl = 'image_url' in service ? (service.image_url as string | null) : null;
               return (
-                <div
-                  key={'id' in service ? String(service.id) : index}
-                  className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                >
-                  {imageUrl ? (
-                    <div className="h-40 overflow-hidden">
-                      <img 
-                        src={imageUrl} 
-                        alt={service.title} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
+                <AnimatedCard key={'id' in service ? String(service.id) : index} delay={index * 100}>
+                  <div className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
+                    {imageUrl ? (
+                      <div className="h-40 overflow-hidden">
+                        <img 
+                          src={imageUrl} 
+                          alt={service.title} 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    ) : null}
+                    <div className="p-6">
+                      <div className="w-12 h-12 bg-brand-orange-light rounded-xl flex items-center justify-center mb-4 group-hover:bg-gradient-orange group-hover:scale-110 transition-all duration-300">
+                        <IconComponent className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                      </div>
+                      <h3 className="font-display font-bold text-lg mb-2">
+                        {service.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {service.short_description}
+                      </p>
                     </div>
-                  ) : null}
-                  <div className="p-6">
-                    <div className="w-12 h-12 bg-brand-orange-light rounded-xl flex items-center justify-center mb-4 group-hover:bg-gradient-orange group-hover:scale-110 transition-all duration-300">
-                      <IconComponent className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
-                    </div>
-                    <h3 className="font-display font-bold text-lg mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {service.short_description}
-                    </p>
                   </div>
-                </div>
+                </AnimatedCard>
               );
             })}
           </div>
