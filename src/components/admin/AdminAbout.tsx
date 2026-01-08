@@ -17,6 +17,7 @@ interface AboutContent {
   satisfaction_rate: string | null;
   coverage_area: string | null;
   image_url: string | null;
+  clients_satisfied: string | null;
 }
 
 const AdminAbout = () => {
@@ -179,8 +180,8 @@ const AdminAbout = () => {
             <Input value={content.moves_completed || ""} onChange={(e) => setContent({ ...content, moves_completed: e.target.value })} placeholder="Ex: 2500+" />
           </div>
           <div>
-            <Label>Taxa de Satisfação</Label>
-            <Input value={content.satisfaction_rate || ""} onChange={(e) => setContent({ ...content, satisfaction_rate: e.target.value })} placeholder="Ex: 98%" />
+            <Label>Clientes Satisfeitos</Label>
+            <Input value={content.clients_satisfied || ""} onChange={(e) => setContent({ ...content, clients_satisfied: e.target.value })} placeholder="Ex: 1000+" />
           </div>
           <div>
             <Label>Área de Cobertura</Label>

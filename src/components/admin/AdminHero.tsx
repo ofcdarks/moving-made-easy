@@ -20,6 +20,12 @@ interface HeroContent {
   typing_speed: number | null;
   delete_speed: number | null;
   background_images: string[] | null;
+  stat_deliveries: string | null;
+  stat_deliveries_label: string | null;
+  stat_punctuality: string | null;
+  stat_punctuality_label: string | null;
+  stat_security: string | null;
+  stat_security_label: string | null;
 }
 
 const AdminHero = () => {
@@ -281,6 +287,54 @@ const AdminHero = () => {
                 step={5}
               />
               <p className="text-xs text-muted-foreground">Menor = mais rápido</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats Section */}
+        <div className="bg-card rounded-xl border p-6 space-y-4">
+          <h3 className="font-semibold text-lg">Estatísticas da Hero</h3>
+          <p className="text-sm text-muted-foreground">Esses números aparecem na parte inferior do banner.</p>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="space-y-3 p-4 bg-muted/30 rounded-lg">
+              <Label className="font-medium">Estatística 1</Label>
+              <Input 
+                value={content.stat_deliveries || ""} 
+                onChange={(e) => setContent({ ...content, stat_deliveries: e.target.value })} 
+                placeholder="Ex: 500+"
+              />
+              <Input 
+                value={content.stat_deliveries_label || ""} 
+                onChange={(e) => setContent({ ...content, stat_deliveries_label: e.target.value })} 
+                placeholder="Entregas"
+              />
+            </div>
+            <div className="space-y-3 p-4 bg-muted/30 rounded-lg">
+              <Label className="font-medium">Estatística 2</Label>
+              <Input 
+                value={content.stat_punctuality || ""} 
+                onChange={(e) => setContent({ ...content, stat_punctuality: e.target.value })} 
+                placeholder="Ex: 99%"
+              />
+              <Input 
+                value={content.stat_punctuality_label || ""} 
+                onChange={(e) => setContent({ ...content, stat_punctuality_label: e.target.value })} 
+                placeholder="Pontualidade"
+              />
+            </div>
+            <div className="space-y-3 p-4 bg-muted/30 rounded-lg">
+              <Label className="font-medium">Estatística 3</Label>
+              <Input 
+                value={content.stat_security || ""} 
+                onChange={(e) => setContent({ ...content, stat_security: e.target.value })} 
+                placeholder="Ex: 100%"
+              />
+              <Input 
+                value={content.stat_security_label || ""} 
+                onChange={(e) => setContent({ ...content, stat_security_label: e.target.value })} 
+                placeholder="Segurança"
+              />
             </div>
           </div>
         </div>

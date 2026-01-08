@@ -169,9 +169,9 @@ const HeroSection = () => {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-6 animate-slide-up animate-delay-400">
             {[
-              { icon: Truck, label: "Entregas", value: "500+" },
-              { icon: Clock, label: "Pontualidade", value: "99%" },
-              { icon: Shield, label: "Segurança", value: "100%" },
+              { icon: Truck, label: heroContent?.stat_deliveries_label || "Entregas", value: heroContent?.stat_deliveries || "500+" },
+              { icon: Clock, label: heroContent?.stat_punctuality_label || "Pontualidade", value: heroContent?.stat_punctuality || "99%" },
+              { icon: Shield, label: heroContent?.stat_security_label || "Segurança", value: heroContent?.stat_security || "100%" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <stat.icon className="w-8 h-8 text-primary mx-auto mb-2" />

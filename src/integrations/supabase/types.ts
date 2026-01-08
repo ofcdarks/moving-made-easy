@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       about_content: {
         Row: {
+          clients_satisfied: string | null
           coverage_area: string | null
           created_at: string
           description: string | null
@@ -30,6 +31,7 @@ export type Database = {
           years_experience: string | null
         }
         Insert: {
+          clients_satisfied?: string | null
           coverage_area?: string | null
           created_at?: string
           description?: string | null
@@ -44,6 +46,7 @@ export type Database = {
           years_experience?: string | null
         }
         Update: {
+          clients_satisfied?: string | null
           coverage_area?: string | null
           created_at?: string
           description?: string | null
@@ -137,6 +140,12 @@ export type Database = {
           id: string
           is_active: boolean | null
           rotating_phrases: string[] | null
+          stat_deliveries: string | null
+          stat_deliveries_label: string | null
+          stat_punctuality: string | null
+          stat_punctuality_label: string | null
+          stat_security: string | null
+          stat_security_label: string | null
           subtitle: string | null
           title: string
           typing_speed: number | null
@@ -153,6 +162,12 @@ export type Database = {
           id?: string
           is_active?: boolean | null
           rotating_phrases?: string[] | null
+          stat_deliveries?: string | null
+          stat_deliveries_label?: string | null
+          stat_punctuality?: string | null
+          stat_punctuality_label?: string | null
+          stat_security?: string | null
+          stat_security_label?: string | null
           subtitle?: string | null
           title: string
           typing_speed?: number | null
@@ -169,6 +184,12 @@ export type Database = {
           id?: string
           is_active?: boolean | null
           rotating_phrases?: string[] | null
+          stat_deliveries?: string | null
+          stat_deliveries_label?: string | null
+          stat_punctuality?: string | null
+          stat_punctuality_label?: string | null
+          stat_security?: string | null
+          stat_security_label?: string | null
           subtitle?: string | null
           title?: string
           typing_speed?: number | null
