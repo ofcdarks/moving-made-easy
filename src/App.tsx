@@ -15,6 +15,7 @@ import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import PoliticaCookies from "./pages/PoliticaCookies";
 import NotFound from "./pages/NotFound";
 import AnalyticsScripts from "./components/AnalyticsScripts";
+import PageViewTracker from "./components/PageViewTracker";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <PageViewTracker />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/sobre" element={<Sobre />} />

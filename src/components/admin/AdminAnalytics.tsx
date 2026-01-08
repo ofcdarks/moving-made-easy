@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BarChart3, Eye, TrendingUp, Users, Calendar } from "lucide-react";
+import { BarChart3, Eye, TrendingUp, Users, Calendar, RefreshCw } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,22 +15,29 @@ interface AnalyticsSetting {
   label: string;
 }
 
+interface AnalyticsStats {
+  visitors_today: number;
+  visitors_week: number;
+  visitors_month: number;
+  page_views: number;
+}
+
 const AdminAnalytics = () => {
   const [settings, setSettings] = useState<AnalyticsSetting[]>([]);
+  const [stats, setStats] = useState<AnalyticsStats>({
+    visitors_today: 0,
+    visitors_week: 0,
+    visitors_month: 0,
+    page_views: 0,
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const { toast } = useToast();
-
-  // Placeholder stats - em produção seria integrado com Google Analytics API
-  const stats = {
-    visitors_today: 127,
-    visitors_week: 843,
-    visitors_month: 3256,
-    page_views: 5420,
-  };
 
   useEffect(() => {
     fetchSettings();
+    fetchStats();
   }, []);
 
   const fetchSettings = async () => {
@@ -46,6 +53,59 @@ const AdminAnalytics = () => {
       setSettings(data || []);
     }
     setIsLoading(false);
+  };
+
+  const fetchStats = async () => {
+    setIsRefreshing(true);
+    try {
+      const now = new Date();
+      const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const startOfWeek = new Date(startOfToday);
+      startOfWeek.setDate(startOfWeek.getDate() - 7);
+      const startOfMonth = new Date(startOfToday);
+      startOfMonth.setDate(startOfMonth.getDate() - 30);
+
+      // Fetch unique visitors today
+      const { data: todayData } = await supabase
+        .from("page_views")
+        .select("visitor_id")
+        .gte("created_at", startOfToday.toISOString());
+      
+      const uniqueVisitorsToday = new Set(todayData?.map(v => v.visitor_id) || []).size;
+
+      // Fetch unique visitors this week
+      const { data: weekData } = await supabase
+        .from("page_views")
+        .select("visitor_id")
+        .gte("created_at", startOfWeek.toISOString());
+      
+      const uniqueVisitorsWeek = new Set(weekData?.map(v => v.visitor_id) || []).size;
+
+      // Fetch unique visitors this month
+      const { data: monthData } = await supabase
+        .from("page_views")
+        .select("visitor_id")
+        .gte("created_at", startOfMonth.toISOString());
+      
+      const uniqueVisitorsMonth = new Set(monthData?.map(v => v.visitor_id) || []).size;
+
+      // Fetch total page views this month
+      const { count: pageViewsCount } = await supabase
+        .from("page_views")
+        .select("id", { count: "exact", head: true })
+        .gte("created_at", startOfMonth.toISOString());
+
+      setStats({
+        visitors_today: uniqueVisitorsToday,
+        visitors_week: uniqueVisitorsWeek,
+        visitors_month: uniqueVisitorsMonth,
+        page_views: pageViewsCount || 0,
+      });
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   const handleChange = (key: string, value: string) => {
@@ -82,6 +142,10 @@ const AdminAnalytics = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-display font-bold">Analytics e Rastreamento</h2>
+        <Button variant="outline" size="sm" onClick={fetchStats} disabled={isRefreshing}>
+          <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`} />
+          Atualizar
+        </Button>
       </div>
 
       {/* Stats Cards */}
@@ -93,29 +157,29 @@ const AdminAnalytics = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.visitors_today}</div>
-            <p className="text-xs text-muted-foreground">+12% vs ontem</p>
+            <p className="text-xs text-muted-foreground">Visitantes únicos</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Visitantes Semana</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Últimos 7 Dias</CardTitle>
             <Calendar className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.visitors_week}</div>
-            <p className="text-xs text-muted-foreground">+8% vs semana passada</p>
+            <p className="text-xs text-muted-foreground">Visitantes únicos</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Visitantes Mês</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Últimos 30 Dias</CardTitle>
             <Users className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.visitors_month.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">+23% vs mês passado</p>
+            <p className="text-xs text-muted-foreground">Visitantes únicos</p>
           </CardContent>
         </Card>
 
@@ -126,7 +190,7 @@ const AdminAnalytics = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.page_views.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">Este mês</p>
+            <p className="text-xs text-muted-foreground">Últimos 30 dias</p>
           </CardContent>
         </Card>
       </div>
