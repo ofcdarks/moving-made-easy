@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock, Truck } from "lucide-react";
-import logo from "@/assets/logo.png";
+
+const WHATSAPP_LINK = "https://wa.me/5514996054098?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,7 +12,15 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & Description */}
           <div className="space-y-4">
-            <img src={logo} alt="LF Fretes e Mudanças" className="h-14 brightness-0 invert" />
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 bg-gradient-orange rounded-lg flex items-center justify-center">
+                <Truck className="w-6 h-6 text-primary-foreground" />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-display font-black text-lg leading-tight text-primary-foreground">LF FRETES</span>
+                <span className="text-xs text-secondary-foreground/60 tracking-wider">MUDANÇAS</span>
+              </div>
+            </div>
             <p className="text-sm leading-relaxed text-secondary-foreground/70">
               Sua mudança em boas mãos. Oferecemos serviços de fretes e mudanças com segurança,
               pontualidade e o melhor custo-benefício do mercado.
@@ -70,7 +79,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="https://wa.me/5514996054098"
+                  href={WHATSAPP_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-secondary-foreground/70 hover:text-primary transition-colors"

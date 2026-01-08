@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.png";
+
+const WHATSAPP_LINK = "https://wa.me/5514996054098?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,8 +38,14 @@ const Header = () => {
     >
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center">
-            <img src={logo} alt="LF Fretes e Mudanças" className="h-12 md:h-14" />
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-gradient-orange rounded-lg flex items-center justify-center">
+              <Truck className="w-6 h-6 text-primary-foreground" />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-display font-black text-lg leading-tight">LF FRETES</span>
+              <span className="text-xs text-muted-foreground tracking-wider">MUDANÇAS</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -63,11 +70,11 @@ const Header = () => {
 
           <div className="hidden lg:flex items-center gap-4">
             <a
-              href="https://wa.me/5514996054098"
+              href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button variant="default" size="lg" className="gap-2 bg-gradient-red shadow-red hover:opacity-90">
+              <Button variant="default" size="lg" className="gap-2 bg-gradient-orange shadow-orange hover:opacity-90">
                 <Phone className="w-4 h-4" />
                 Orçamento Grátis
               </Button>
@@ -107,11 +114,11 @@ const Header = () => {
               ))}
               <li className="px-4 pt-4">
                 <a
-                  href="https://wa.me/5514996054098"
+                  href={WHATSAPP_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Button variant="default" className="w-full gap-2 bg-gradient-red">
+                  <Button variant="default" className="w-full gap-2 bg-gradient-orange">
                     <Phone className="w-4 h-4" />
                     Orçamento Grátis
                   </Button>
