@@ -11,6 +11,7 @@ import {
   Menu,
   HelpCircle,
   Truck,
+  BarChart3,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -25,8 +26,9 @@ import AdminFAQs from "@/components/admin/AdminFAQs";
 import AdminHero from "@/components/admin/AdminHero";
 import AdminAbout from "@/components/admin/AdminAbout";
 import AdminQuotes from "@/components/admin/AdminQuotes";
+import AdminAnalytics from "@/components/admin/AdminAnalytics";
 
-type AdminTab = "quotes" | "settings" | "services" | "testimonials" | "gallery" | "faqs" | "hero" | "about";
+type AdminTab = "quotes" | "analytics" | "settings" | "services" | "testimonials" | "gallery" | "faqs" | "hero" | "about";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState<AdminTab>("quotes");
@@ -74,6 +76,7 @@ const Admin = () => {
 
   const menuItems = [
     { id: "quotes" as AdminTab, label: "Orçamentos", icon: FileText },
+    { id: "analytics" as AdminTab, label: "Analytics", icon: BarChart3 },
     { id: "settings" as AdminTab, label: "Configurações", icon: Settings },
     { id: "hero" as AdminTab, label: "Banner Principal", icon: Home },
     { id: "about" as AdminTab, label: "Sobre Nós", icon: Info },
@@ -144,6 +147,7 @@ const Admin = () => {
       <main className={`flex-1 ${isSidebarOpen ? "ml-64" : "ml-16"} transition-all duration-300`}>
         <div className="p-6 md:p-8">
           {activeTab === "quotes" && <AdminQuotes />}
+          {activeTab === "analytics" && <AdminAnalytics />}
           {activeTab === "settings" && <AdminSettings />}
           {activeTab === "services" && <AdminServices />}
           {activeTab === "testimonials" && <AdminTestimonials />}
