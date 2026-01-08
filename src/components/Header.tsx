@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, Truck } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logoFull from "@/assets/logo-full.png";
 
 const WHATSAPP_LINK = "https://wa.me/5514996054098?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
 
@@ -38,14 +39,12 @@ const Header = () => {
     >
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-orange rounded-lg flex items-center justify-center">
-              <Truck className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-display font-black text-lg leading-tight">LF FRETES</span>
-              <span className="text-xs text-muted-foreground tracking-wider">MUDANÇAS</span>
-            </div>
+          <Link to="/" className="flex items-center">
+            <img 
+              src={logoFull} 
+              alt="LF Fretes e Mudanças" 
+              className="h-10 md:h-12 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
