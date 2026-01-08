@@ -128,38 +128,50 @@ export type Database = {
       hero_content: {
         Row: {
           background_image_url: string | null
+          background_images: string[] | null
           created_at: string
           cta_link: string | null
           cta_text: string | null
+          delete_speed: number | null
           highlight_text: string | null
           id: string
           is_active: boolean | null
+          rotating_phrases: string[] | null
           subtitle: string | null
           title: string
+          typing_speed: number | null
           updated_at: string
         }
         Insert: {
           background_image_url?: string | null
+          background_images?: string[] | null
           created_at?: string
           cta_link?: string | null
           cta_text?: string | null
+          delete_speed?: number | null
           highlight_text?: string | null
           id?: string
           is_active?: boolean | null
+          rotating_phrases?: string[] | null
           subtitle?: string | null
           title: string
+          typing_speed?: number | null
           updated_at?: string
         }
         Update: {
           background_image_url?: string | null
+          background_images?: string[] | null
           created_at?: string
           cta_link?: string | null
           cta_text?: string | null
+          delete_speed?: number | null
           highlight_text?: string | null
           id?: string
           is_active?: boolean | null
+          rotating_phrases?: string[] | null
           subtitle?: string | null
           title?: string
+          typing_speed?: number | null
           updated_at?: string
         }
         Relationships: []

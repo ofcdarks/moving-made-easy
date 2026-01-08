@@ -4,21 +4,25 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import truckSunset from "@/assets/truck-sunset.jpeg";
+import truckAerial from "@/assets/truck-aerial.jpg";
 import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 
-const ROTATING_PHRASES = [
+const DEFAULT_PHRASES = [
   "Segurança e Pontualidade",
   "Cuidado e Profissionalismo", 
   "Confiança e Qualidade",
 ];
 
+const DEFAULT_IMAGES = [truckSunset, truckAerial];
+
 const HeroSection = () => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const { data: heroContent, isLoading } = useQuery({
     queryKey: ["hero-content"],
@@ -34,43 +38,75 @@ const HeroSection = () => {
     },
   });
 
+  // Get phrases from DB or use defaults
+  const phrases = heroContent?.rotating_phrases?.length 
+    ? heroContent.rotating_phrases 
+    : DEFAULT_PHRASES;
+  
+  const typingSpeed = heroContent?.typing_speed || 80;
+  const deleteSpeed = heroContent?.delete_speed || 30;
+
+  // Get images - combine main image with additional images, or use defaults
+  const allImages = (() => {
+    const images: string[] = [];
+    if (heroContent?.background_image_url) {
+      images.push(heroContent.background_image_url);
+    }
+    if (heroContent?.background_images?.length) {
+      images.push(...heroContent.background_images);
+    }
+    return images.length > 0 ? images : DEFAULT_IMAGES;
+  })();
+
+  // Typewriter effect
   useEffect(() => {
-    const currentPhrase = ROTATING_PHRASES[currentPhraseIndex];
+    const currentPhrase = phrases[currentPhraseIndex];
     
     const timeout = setTimeout(() => {
       if (!isDeleting) {
-        // Typing
         if (displayedText.length < currentPhrase.length) {
           setDisplayedText(currentPhrase.slice(0, displayedText.length + 1));
         } else {
-          // Pause before deleting
           setTimeout(() => setIsDeleting(true), 2000);
         }
       } else {
-        // Deleting
         if (displayedText.length > 0) {
           setDisplayedText(displayedText.slice(0, -1));
         } else {
           setIsDeleting(false);
-          setCurrentPhraseIndex((prev) => (prev + 1) % ROTATING_PHRASES.length);
+          setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
         }
       }
-    }, isDeleting ? 30 : 80);
+    }, isDeleting ? deleteSpeed : typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [displayedText, isDeleting, currentPhraseIndex]);
+  }, [displayedText, isDeleting, currentPhraseIndex, phrases, typingSpeed, deleteSpeed]);
 
-  const backgroundImage = heroContent?.background_image_url || truckSunset;
+  // Image rotation effect
+  useEffect(() => {
+    if (allImages.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+    }, 8000);
+
+    return () => clearInterval(interval);
+  }, [allImages.length]);
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Image with slow zoom animation */}
+      {/* Background Images with crossfade */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={backgroundImage}
-          alt="Caminhão LF Fretes"
-          className="w-full h-full object-cover animate-slow-zoom"
-        />
+        {allImages.map((img, index) => (
+          <img
+            key={img}
+            src={img}
+            alt="Caminhão LF Fretes"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 animate-slow-zoom ${
+              index === currentImageIndex ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/85 to-secondary/50" />
       </div>
 
