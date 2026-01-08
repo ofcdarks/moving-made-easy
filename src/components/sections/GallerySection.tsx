@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Camera } from "lucide-react";
+import OptimizedImage from "@/components/OptimizedImage";
 
 // All gallery images
 import truckSunset from "@/assets/truck-sunset.jpeg";
@@ -43,6 +44,52 @@ const allDefaultImages = [
   { image_url: funcionarioCaminhao, title: "Equipe LF Fretes", category: "Equipe" },
   { image_url: cargaPaletizada, title: "Carga paletizada", category: "Logística" },
 ];
+
+// Memoized gallery image component
+const GalleryImage = memo(({ image, index, isLarge, isFading }: {
+  image: { image_url: string; title?: string | null; category?: string | null };
+  index: number;
+  isLarge: boolean;
+  isFading: boolean;
+}) => (
+  <div
+    className={`group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer ${
+      isLarge ? 'row-span-2' : ''
+    }`}
+  >
+    <OptimizedImage
+      src={image.image_url}
+      alt={image.title || "Galeria LF Fretes"}
+      className={`w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ${
+        isFading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
+      }`}
+      containerClassName="w-full h-full"
+    />
+    {/* Overlay gradient */}
+    <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    
+    {/* Category badge */}
+    {image.category && (
+      <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0">
+        {String(image.category)}
+      </span>
+    )}
+    
+    {/* Title */}
+    {image.title && (
+      <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+        <p className="text-white font-semibold text-sm md:text-base drop-shadow-lg">
+          {image.title}
+        </p>
+      </div>
+    )}
+
+    {/* Shine effect */}
+    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+  </div>
+));
+
+GalleryImage.displayName = "GalleryImage";
 
 const GallerySection = () => {
   const [displayedIndices, setDisplayedIndices] = useState([0, 1, 2, 3, 4, 5]);
@@ -139,43 +186,13 @@ const GallerySection = () => {
               const isLarge = index === 0 || index === 3;
               const isFading = fadingIndex === index;
               return (
-                <div
-                  key={index}
-                  className={`group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer ${
-                    isLarge ? 'row-span-2' : ''
-                  }`}
-                >
-                  <img
-                    src={image.image_url}
-                    alt={image.title || "Galeria LF Fretes"}
-                    loading="lazy"
-                    decoding="async"
-                    className={`w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ${
-                      isFading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
-                    }`}
-                  />
-                  {/* Overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  {/* Category badge */}
-                  {'category' in image && image.category && (
-                    <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0">
-                      {String(image.category)}
-                    </span>
-                  )}
-                  
-                  {/* Title */}
-                  {image.title && (
-                    <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <p className="text-white font-semibold text-sm md:text-base drop-shadow-lg">
-                        {image.title}
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Shine effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                </div>
+                <GalleryImage
+                  key={`gallery-${index}`}
+                  image={image}
+                  index={index}
+                  isLarge={isLarge}
+                  isFading={isFading}
+                />
               );
             })}
           </div>
