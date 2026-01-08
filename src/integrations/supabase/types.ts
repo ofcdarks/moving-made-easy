@@ -138,6 +138,7 @@ export type Database = {
           delete_speed: number | null
           highlight_text: string | null
           id: string
+          image_transition_time: number | null
           is_active: boolean | null
           rotating_phrases: string[] | null
           stat_deliveries: string | null
@@ -160,6 +161,7 @@ export type Database = {
           delete_speed?: number | null
           highlight_text?: string | null
           id?: string
+          image_transition_time?: number | null
           is_active?: boolean | null
           rotating_phrases?: string[] | null
           stat_deliveries?: string | null
@@ -182,6 +184,7 @@ export type Database = {
           delete_speed?: number | null
           highlight_text?: string | null
           id?: string
+          image_transition_time?: number | null
           is_active?: boolean | null
           rotating_phrases?: string[] | null
           stat_deliveries?: string | null

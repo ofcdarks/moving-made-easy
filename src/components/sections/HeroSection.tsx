@@ -86,16 +86,19 @@ const HeroSection = () => {
     return () => clearTimeout(timeout);
   }, [displayedText, isDeleting, currentPhraseIndex, phrases, typingSpeed, deleteSpeed]);
 
+  // Get transition time from DB or use default (8 seconds)
+  const transitionTime = (heroContent?.image_transition_time || 8) * 1000;
+
   // Image rotation effect - transição suave
   useEffect(() => {
     if (allImages.length <= 1) return;
     
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
-    }, 8000); // 8 segundos por imagem
+    }, transitionTime);
 
     return () => clearInterval(interval);
-  }, [allImages.length]);
+  }, [allImages.length, transitionTime]);
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
