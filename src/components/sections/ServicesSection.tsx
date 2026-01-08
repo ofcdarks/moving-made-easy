@@ -74,8 +74,8 @@ const ServicesSection = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {displayServices.map((service, index) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {displayServices.map((service, index) => {
               const IconComponent = iconMap[service.icon || "Truck"] || Truck;
               const imageUrl = 'image_url' in service ? (service.image_url as string | null) : null;
               return (
