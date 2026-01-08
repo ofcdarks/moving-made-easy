@@ -100,6 +100,10 @@ export default {
           "0%": { transform: "scale(1)" },
           "100%": { transform: "scale(1.1)" },
         },
+        "ken-burns": {
+          "0%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1.15)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -108,6 +112,7 @@ export default {
         "slide-in-right": "slide-in-right 0.3s ease-out",
         "bounce-soft": "bounce-soft 2s ease-in-out infinite",
         "slow-zoom": "slow-zoom 20s ease-out forwards",
+        "ken-burns": "ken-burns 8s ease-out forwards",
       },
     },
   },

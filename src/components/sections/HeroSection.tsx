@@ -97,19 +97,25 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Images with crossfade */}
+      {/* Background Images with crossfade and Ken Burns effect */}
       <div className="absolute inset-0 z-0">
         {allImages.map((img, index) => (
-          <img
+          <div
             key={img}
-            src={img}
-            alt="Caminhão LF Fretes"
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[2000ms] ease-in-out ${
-              index === currentImageIndex 
-                ? "opacity-100 scale-100" 
-                : "opacity-0 scale-105"
+            className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
+              index === currentImageIndex ? "opacity-100" : "opacity-0"
             }`}
-          />
+          >
+            <img
+              src={img}
+              alt="Caminhão LF Fretes"
+              className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[8000ms] ease-out ${
+                index === currentImageIndex 
+                  ? "scale-110 animate-ken-burns" 
+                  : "scale-100"
+              }`}
+            />
+          </div>
         ))}
         <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/85 to-secondary/50" />
       </div>
