@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import truckLoading from "@/assets/truck-loading.jpeg";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const features = [
   "Equipe treinada e uniformizada",
@@ -52,7 +53,7 @@ const AboutSection = () => {
             {/* Floating Card */}
             <div className="absolute -bottom-6 -right-6 bg-card rounded-xl p-6 shadow-lg max-w-[200px] border border-border">
               <div className="text-4xl font-display font-black text-primary mb-2">
-                {aboutContent?.years_experience || "10+"}
+                <AnimatedCounter value={aboutContent?.years_experience || "10+"} duration={2000} />
               </div>
               <p className="text-sm text-muted-foreground">
                 Anos de experiência no mercado
@@ -104,7 +105,9 @@ const AboutSection = () => {
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <stat.icon className="w-6 h-6 text-primary mx-auto mb-2" />
-                  <p className="text-2xl font-display font-bold">{stat.value}</p>
+                  <p className="text-2xl font-display font-bold">
+                    <AnimatedCounter value={stat.value} duration={2000} />
+                  </p>
                   <p className="text-xs text-muted-foreground">{stat.label}</p>
                 </div>
               ))}
