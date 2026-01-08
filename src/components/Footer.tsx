@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock, Truck } from "lucide-react";
+import logoFull from "@/assets/logo-full.png";
 
 const WHATSAPP_LINK = "https://wa.me/5514996054098?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
 
@@ -12,22 +13,18 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & Description */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-orange rounded-lg flex items-center justify-center">
-                <Truck className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-display font-black text-lg leading-tight text-primary-foreground">LF FRETES</span>
-                <span className="text-xs text-secondary-foreground/60 tracking-wider">MUDANÇAS</span>
-              </div>
-            </div>
+            <img 
+              src={logoFull} 
+              alt="LF Fretes e Mudanças" 
+              className="h-10 w-auto brightness-0 invert"
+            />
             <p className="text-sm leading-relaxed text-secondary-foreground/70">
               Sua mudança em boas mãos. Oferecemos serviços de fretes e mudanças com segurança,
               pontualidade e o melhor custo-benefício do mercado.
             </p>
             <div className="flex items-center gap-2 text-primary">
               <Truck className="w-5 h-5" />
-              <span className="text-sm font-medium">Atendemos todo o Brasil</span>
+              <span className="text-sm font-medium">Atendemos Bauru e região</span>
             </div>
           </div>
 
@@ -94,7 +91,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-3 text-secondary-foreground/70">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
-                <span className="text-sm">São Paulo, SP - Atendemos todo o Brasil</span>
+                <span className="text-sm">Bauru, SP - Atendemos toda a região</span>
               </li>
               <li className="flex items-center gap-3 text-secondary-foreground/70">
                 <Clock className="w-5 h-5 text-primary" />
