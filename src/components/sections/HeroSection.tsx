@@ -124,9 +124,9 @@ const HeroSection = () => {
               <img
                 src={img}
                 alt="LF Fretes e Mudanças"
-                className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[12000ms] ease-out ${
+                className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${
                   isActive 
-                    ? "scale-110" 
+                    ? "scale-105" 
                     : "scale-100"
                 }`}
               />
