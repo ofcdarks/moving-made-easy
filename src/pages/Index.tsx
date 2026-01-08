@@ -9,6 +9,7 @@ import GallerySection from "@/components/sections/GallerySection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FAQSection from "@/components/sections/FAQSection";
 import CTASection from "@/components/sections/CTASection";
+import GoogleReviewsWidget from "@/components/GoogleReviewsWidget";
 
 const Index = () => {
   return (
@@ -17,6 +18,7 @@ const Index = () => {
       <HeroSection />
       <ServicesSection />
       <AboutSection />
+      <GoogleReviewsWidget />
       <GallerySection />
       <TestimonialsSection />
       <FAQSection />
