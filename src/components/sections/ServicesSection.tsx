@@ -1,6 +1,6 @@
 import { 
   Home, Building2, Truck, Package, Share2, Briefcase, 
-  ArrowDownUp, CalendarCheck, LucideIcon
+  ArrowDownUp, CalendarCheck, Wrench, Shield, LucideIcon
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -17,17 +17,19 @@ const iconMap: Record<string, LucideIcon> = {
   Briefcase,
   ArrowDownUp,
   CalendarCheck,
+  Wrench,
+  Shield,
 };
 
 const defaultServices = [
-  { icon: "Home", title: "Mudanças Residenciais", short_description: "Cuidamos da sua mudança residencial com todo carinho e profissionalismo que você merece." },
-  { icon: "Building2", title: "Mudanças Comerciais", short_description: "Minimize o tempo de parada do seu negócio com nossa equipe especializada." },
-  { icon: "Share2", title: "Mudança Compartilhada", short_description: "Economize dividindo o frete. Ideal para quem busca custo reduzido." },
-  { icon: "Truck", title: "Fretes em Geral", short_description: "Transporte de cargas e mercadorias com segurança para qualquer destino." },
-  { icon: "Briefcase", title: "Agenciamento de Cargas", short_description: "Gestão completa do processo logístico da sua carga." },
-  { icon: "ArrowDownUp", title: "Carga e Descarga", short_description: "Equipe especializada para manusear seus itens com cuidado." },
-  { icon: "CalendarCheck", title: "Transporte para Feiras", short_description: "Transporte especializado para feiras, exposições e eventos." },
-  { icon: "Package", title: "Embalagem Profissional", short_description: "Materiais de qualidade e técnicas profissionais para proteger seus pertences." },
+  { icon: "Home", title: "Mudanças Residenciais", short_description: "Transporte seguro de todos os seus móveis e pertences para sua nova casa." },
+  { icon: "Building2", title: "Mudanças Comerciais", short_description: "Relocação de escritórios e empresas com mínimo impacto nas operações." },
+  { icon: "Package", title: "Embalagem Profissional", short_description: "Serviço completo de embalagem com materiais de alta qualidade." },
+  { icon: "Wrench", title: "Montagem e Desmontagem", short_description: "Desmontamos e montamos seus móveis com cuidado e precisão." },
+  { icon: "Truck", title: "Transporte de Cargas", short_description: "Frete para cargas diversas com segurança e pontualidade." },
+  { icon: "CalendarCheck", title: "Mudanças para Eventos", short_description: "Logística completa para transporte de materiais de eventos." },
+  { icon: "ArrowDownUp", title: "Carga e Descarga", short_description: "Equipe especializada para carregar e descarregar com agilidade." },
+  { icon: "Shield", title: "Seguro de Carga", short_description: "Proteção total para seus bens durante todo o transporte." },
 ];
 
 const ServicesSection = () => {
