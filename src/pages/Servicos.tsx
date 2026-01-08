@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import ServiceModal, { ServiceData } from "@/components/ServiceModal";
+import AnimatedCard from "@/components/AnimatedCard";
 import { 
   Home, Building2, Truck, Package, Wrench, MapPin, Clock, Shield, Phone,
   CalendarCheck, Briefcase, ArrowDownUp, Share2, Info
@@ -333,61 +334,62 @@ const Servicos = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <div
-                key={index}
-                id={service.title.toLowerCase().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "")}
-                className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-border"
-              >
-                <div className="h-48 overflow-hidden relative">
-                  <img 
-                    src={service.image} 
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <button
-                    onClick={() => handleOpenModal(service)}
-                    className="absolute top-3 right-3 w-10 h-10 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                    aria-label={`Mais informações sobre ${service.title}`}
-                  >
-                    <Info className="w-5 h-5" />
-                  </button>
-                </div>
-                <div className="p-6">
-                  <div className="w-12 h-12 bg-brand-orange-light rounded-xl flex items-center justify-center mb-4 -mt-12 relative z-10 border-4 border-card">
-                    <service.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-display font-bold text-xl mb-3">
-                    {service.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                    {service.description}
-                  </p>
-                  <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex-1 gap-2"
+              <AnimatedCard key={index} delay={index * 100}>
+                <div
+                  id={service.title.toLowerCase().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "")}
+                  className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-border h-full"
+                >
+                  <div className="h-48 overflow-hidden relative">
+                    <img 
+                      src={service.image} 
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <button
                       onClick={() => handleOpenModal(service)}
+                      className="absolute top-3 right-3 w-10 h-10 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      aria-label={`Mais informações sobre ${service.title}`}
                     >
-                      <Info className="w-4 h-4" />
-                      Saiba Mais
-                    </Button>
-                    <a
-                      href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        openWhatsApp(`Olá! Gostaria de saber mais sobre ${service.title}.`);
-                      }}
-                      className="flex-1"
-                    >
-                      <Button variant="default" size="sm" className="w-full gap-2 bg-gradient-orange hover:opacity-90">
-                        <Phone className="w-4 h-4" />
-                        Orçamento
+                      <Info className="w-5 h-5" />
+                    </button>
+                  </div>
+                  <div className="p-6">
+                    <div className="w-12 h-12 bg-brand-orange-light rounded-xl flex items-center justify-center mb-4 -mt-12 relative z-10 border-4 border-card">
+                      <service.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="font-display font-bold text-xl mb-3">
+                      {service.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                      {service.description}
+                    </p>
+                    <div className="flex gap-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex-1 gap-2"
+                        onClick={() => handleOpenModal(service)}
+                      >
+                        <Info className="w-4 h-4" />
+                        Saiba Mais
                       </Button>
-                    </a>
+                      <a
+                        href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          openWhatsApp(`Olá! Gostaria de saber mais sobre ${service.title}.`);
+                        }}
+                        className="flex-1"
+                      >
+                        <Button variant="default" size="sm" className="w-full gap-2 bg-gradient-orange hover:opacity-90">
+                          <Phone className="w-4 h-4" />
+                          Orçamento
+                        </Button>
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </AnimatedCard>
             ))}
           </div>
         </div>
