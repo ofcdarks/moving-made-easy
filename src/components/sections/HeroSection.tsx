@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { ArrowRight, Shield, Clock, Truck, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
@@ -8,7 +9,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 
+const ROTATING_PHRASES = [
+  "Segurança e Pontualidade",
+  "Cuidado e Profissionalismo", 
+  "Confiança e Qualidade",
+];
+
 const HeroSection = () => {
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
   const { data: heroContent, isLoading } = useQuery({
     queryKey: ["hero-content"],
     queryFn: async () => {
@@ -22,6 +31,18 @@ const HeroSection = () => {
       return data;
     },
   });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentPhraseIndex((prev) => (prev + 1) % ROTATING_PHRASES.length);
+        setIsAnimating(false);
+      }, 500);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const backgroundImage = heroContent?.background_image_url || truckSunset;
 
@@ -55,8 +76,14 @@ const HeroSection = () => {
               </div>
               
               <h1 className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-6 animate-slide-up animate-delay-100">
-                {heroContent?.title || "Sua Mudança em"}{" "}
-                <span className="text-gradient-orange">Boas Mãos</span>
+                Mudanças e Fretes com{" "}
+                <span 
+                  className={`text-gradient-orange inline-block transition-all duration-500 ${
+                    isAnimating ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+                  }`}
+                >
+                  {ROTATING_PHRASES[currentPhraseIndex]}
+                </span>
               </h1>
               
               <p className="text-lg md:text-xl text-secondary-foreground/80 mb-8 animate-slide-up animate-delay-200">
