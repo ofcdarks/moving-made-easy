@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import OptimizedImage from "@/components/OptimizedImage";
 import { openWhatsApp } from "@/lib/whatsapp";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -91,6 +92,44 @@ const images = [
   { src: cargaPaletizada, alt: "Carga paletizada", category: "servicos" },
 ];
 
+// Memoized gallery card component for better performance
+const GalleryCard = memo(({ image, index, onClick }: { 
+  image: { src: string; alt: string; category: string }; 
+  index: number; 
+  onClick: () => void;
+}) => (
+  <div
+    onClick={onClick}
+    className="break-inside-avoid group relative rounded-xl overflow-hidden shadow-card hover:shadow-xl transition-all duration-500 cursor-pointer"
+  >
+    <OptimizedImage
+      src={image.src}
+      alt={image.alt}
+      className="w-full object-cover group-hover:scale-105 transition-transform duration-700"
+      containerClassName="w-full"
+    />
+    {/* Overlay */}
+    <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    
+    {/* Category badge */}
+    <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 capitalize">
+      {image.category}
+    </span>
+    
+    {/* Title */}
+    <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+      <p className="text-white font-semibold text-sm drop-shadow-lg">
+        {image.alt}
+      </p>
+    </div>
+
+    {/* Shine effect */}
+    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+  </div>
+));
+
+GalleryCard.displayName = "GalleryCard";
+
 const Galeria = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -153,35 +192,12 @@ const Galeria = () => {
         <div className="container mx-auto px-4">
           <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
             {filteredImages.map((image, index) => (
-              <div
-                key={index}
+              <GalleryCard
+                key={`${image.category}-${index}`}
+                image={image}
+                index={index}
                 onClick={() => openLightbox(index)}
-                className="break-inside-avoid group relative rounded-xl overflow-hidden shadow-card hover:shadow-xl transition-all duration-500 cursor-pointer"
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  loading="lazy"
-                />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                {/* Category badge */}
-                <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 capitalize">
-                  {image.category}
-                </span>
-                
-                {/* Title */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <p className="text-white font-semibold text-sm drop-shadow-lg">
-                    {image.alt}
-                  </p>
-                </div>
-
-                {/* Shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-              </div>
+              />
             ))}
           </div>
 
