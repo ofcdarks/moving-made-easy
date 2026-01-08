@@ -86,13 +86,13 @@ const HeroSection = () => {
     return () => clearTimeout(timeout);
   }, [displayedText, isDeleting, currentPhraseIndex, phrases, typingSpeed, deleteSpeed]);
 
-  // Image rotation effect - transição mais lenta e suave
+  // Image rotation effect - transição suave
   useEffect(() => {
     if (allImages.length <= 1) return;
     
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
-    }, 6000); // 6 segundos por imagem
+    }, 8000); // 8 segundos por imagem
 
     return () => clearInterval(interval);
   }, [allImages.length]);
