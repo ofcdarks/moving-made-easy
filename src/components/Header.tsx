@@ -43,7 +43,7 @@ const Header = () => {
             <img 
               src={logoFull} 
               alt="LF Fretes e Mudanças" 
-              className="h-10 md:h-12 w-auto"
+              className="h-10 md:h-12 w-auto brightness-0 invert"
             />
           </Link>
 
