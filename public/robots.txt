@@ -1,4 +1,5 @@
-# Robots.txt para LF Fretes e Mudanças
+# Robots.txt para LF Soluções Logísticas
+# Fretes e Mudanças em Bauru, Marília, Jaú e Região
 # https://fretesembauru.com.br
 
 User-agent: Googlebot

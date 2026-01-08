@@ -13,8 +13,16 @@
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://fretesembauru.com.br/og-image.jpg</image:loc>
-      <image:title>LF Fretes e Mudanças - Fretes e Mudanças em Bauru</image:title>
+      <image:title>LF Soluções Logísticas - Fretes e Mudanças em Bauru, Marília, Jaú e Região</image:title>
     </image:image>
+  </url>
+  
+  <!-- Serviços por Cidade - Bauru -->
+  <url>
+    <loc>https://fretesembauru.com.br/servicos#mudanca-residencial</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
   
   <!-- Serviços -->
