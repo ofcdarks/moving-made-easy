@@ -137,7 +137,7 @@ serve(async (req) => {
           <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin-top: 20px;">
             <p style="color: #92400e; margin: 0; font-size: 14px;">
               📞 <strong>Precisa de atendimento urgente?</strong><br>
-              Ligue para (14) 99123-4567 ou envie uma mensagem pelo WhatsApp.
+              <a href="https://wa.link/kpdjsl" style="color: #f97316;">Clique aqui para falar no WhatsApp</a>
             </p>
           </div>
         </div>
