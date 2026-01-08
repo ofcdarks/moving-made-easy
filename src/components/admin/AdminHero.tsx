@@ -20,6 +20,7 @@ interface HeroContent {
   typing_speed: number | null;
   delete_speed: number | null;
   background_images: string[] | null;
+  image_transition_time: number | null;
   stat_deliveries: string | null;
   stat_deliveries_label: string | null;
   stat_punctuality: string | null;
@@ -137,6 +138,19 @@ const AdminHero = () => {
         <div className="bg-card rounded-xl border p-6 space-y-4">
           <h3 className="font-semibold text-lg">Imagens de Fundo</h3>
           <p className="text-sm text-muted-foreground">A imagem principal e as adicionais vão alternar automaticamente.</p>
+          
+          {/* Transition Time Control */}
+          <div className="p-4 bg-muted/30 rounded-lg space-y-3">
+            <Label className="font-medium">Tempo de Transição: {content.image_transition_time || 8} segundos</Label>
+            <Slider
+              value={[content.image_transition_time || 8]}
+              onValueChange={([value]) => setContent({ ...content, image_transition_time: value })}
+              min={3}
+              max={15}
+              step={1}
+            />
+            <p className="text-xs text-muted-foreground">Tempo que cada imagem fica visível antes de trocar para a próxima</p>
+          </div>
           
           <input
             type="file"
