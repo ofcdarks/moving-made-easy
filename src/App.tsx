@@ -14,12 +14,14 @@ import Admin from "./pages/Admin";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import PoliticaCookies from "./pages/PoliticaCookies";
 import NotFound from "./pages/NotFound";
+import AnalyticsScripts from "./components/AnalyticsScripts";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <AnalyticsScripts />
       <Toaster />
       <Sonner />
       <BrowserRouter>
