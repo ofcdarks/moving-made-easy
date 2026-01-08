@@ -4,8 +4,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const faqs = [
+const defaultFaqs = [
   {
     question: "Qual o valor do frete ou mudança?",
     answer: "O valor é calculado de acordo com a distância, volume de itens, tipo de serviço e necessidade de mão de obra. Entre em contato conosco para um orçamento personalizado e gratuito!"
@@ -37,6 +40,22 @@ const faqs = [
 ];
 
 const FAQSection = () => {
+  const { data: faqs, isLoading } = useQuery({
+    queryKey: ["faqs"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("faqs")
+        .select("*")
+        .eq("is_active", true)
+        .order("sort_order", { ascending: true });
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const displayFaqs = faqs && faqs.length > 0 ? faqs : defaultFaqs;
+
   return (
     <section id="faq" className="py-20 lg:py-32 bg-muted/50">
       <div className="container mx-auto px-4">
@@ -53,22 +72,32 @@ const FAQSection = () => {
         </div>
 
         <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
+          {isLoading ? (
+            <div className="space-y-4">
+              {[...Array(5)].map((_, index) => (
+                <div key={index} className="bg-card rounded-xl px-6 py-5">
+                  <Skeleton className="h-6 w-3/4" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <Accordion type="single" collapsible className="space-y-4">
+            {displayFaqs.map((faq, index) => (
               <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="bg-card rounded-xl px-6 border-none shadow-sm"
-              >
-                <AccordionTrigger className="text-left font-medium hover:no-underline py-5">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+                key={'id' in faq ? String(faq.id) : index}
+                  value={`item-${index}`}
+                  className="bg-card rounded-xl px-6 border-none shadow-sm"
+                >
+                  <AccordionTrigger className="text-left font-medium hover:no-underline py-5">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-5">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          )}
         </div>
       </div>
     </section>

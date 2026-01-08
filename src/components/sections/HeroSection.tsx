@@ -1,11 +1,28 @@
 import { ArrowRight, Shield, Clock, Truck, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import truckSunset from "@/assets/truck-sunset.jpeg";
 import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 
 const HeroSection = () => {
+  const { data: heroContent, isLoading } = useQuery({
+    queryKey: ["hero-content"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("hero_content")
+        .select("*")
+        .eq("is_active", true)
+        .maybeSingle();
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       {/* Background Image */}
@@ -20,20 +37,31 @@ const HeroSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 rounded-full px-4 py-2 mb-6 animate-slide-up">
-            <Shield className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Soluções Logísticas Completas</span>
-          </div>
-          
-          <h1 className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-6 animate-slide-up animate-delay-100">
-            Sua Mudança em{" "}
-            <span className="text-gradient-orange">Boas Mãos</span>
-          </h1>
-          
-          <p className="text-lg md:text-xl text-secondary-foreground/80 mb-8 animate-slide-up animate-delay-200">
-            Fretes e mudanças com profissionalismo, cuidado e pontualidade.
-            Atendemos residências e empresas em todo o Brasil.
-          </p>
+          {isLoading ? (
+            <>
+              <Skeleton className="h-10 w-64 mb-6 bg-white/20" />
+              <Skeleton className="h-16 w-full mb-6 bg-white/20" />
+              <Skeleton className="h-6 w-3/4 mb-8 bg-white/20" />
+            </>
+          ) : (
+            <>
+              <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 rounded-full px-4 py-2 mb-6 animate-slide-up">
+                <Shield className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-primary">
+                  {heroContent?.highlight_text || "Soluções Logísticas Completas"}
+                </span>
+              </div>
+              
+              <h1 className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-6 animate-slide-up animate-delay-100">
+                {heroContent?.title || "Sua Mudança em"}{" "}
+                <span className="text-gradient-orange">Boas Mãos</span>
+              </h1>
+              
+              <p className="text-lg md:text-xl text-secondary-foreground/80 mb-8 animate-slide-up animate-delay-200">
+                {heroContent?.subtitle || "Fretes e mudanças com profissionalismo, cuidado e pontualidade. Atendemos residências e empresas em todo o Brasil."}
+              </p>
+            </>
+          )}
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-slide-up animate-delay-300">
             <a
@@ -45,10 +73,10 @@ const HeroSection = () => {
             >
               <Button size="lg" className="gap-2 bg-gradient-orange shadow-orange text-lg px-8 py-6">
                 <Phone className="w-5 h-5" />
-                Solicitar Orçamento Grátis
+                {heroContent?.cta_text || "Solicitar Orçamento Grátis"}
               </Button>
             </a>
-            <a href="#servicos">
+            <a href={heroContent?.cta_link || "#servicos"}>
               <Button variant="outline" size="lg" className="gap-2 text-lg px-8 py-6 border-2 border-primary-foreground/50 text-primary-foreground bg-transparent hover:bg-primary-foreground/10">
                 Nossos Serviços
                 <ArrowRight className="w-5 h-5" />
