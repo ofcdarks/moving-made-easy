@@ -1,12 +1,38 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Clock, Truck } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Truck, Settings } from "lucide-react";
 import logoFull from "@/assets/logo-full.png";
 import { buildWhatsAppWebUrl, openWhatsApp, WHATSAPP_PHONE_DISPLAY } from "@/lib/whatsapp";
+import { supabase } from "@/integrations/supabase/client";
 
 const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 
 const Footer = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
   const currentYear = new Date().getFullYear();
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const { data: roles } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", session.user.id)
+          .maybeSingle();
+        
+        setIsAdmin(roles?.role === "admin");
+      }
+    };
+
+    checkAdminStatus();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+      checkAdminStatus();
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const quickLinks = [
     { href: "#inicio", label: "Início" },
@@ -151,6 +177,15 @@ const Footer = () => {
               >
                 Política de Cookies
               </Link>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors"
+                >
+                  <Settings className="w-4 h-4" />
+                  Painel Admin
+                </Link>
+              )}
             </div>
           </div>
         </div>
