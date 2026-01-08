@@ -80,7 +80,7 @@ const Orcamento = () => {
   const onSubmit = async (values: FormValues) => {
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.from("quote_requests").insert({
+      const quoteData = {
         name: values.name,
         email: values.email,
         phone: values.phone,
@@ -89,9 +89,18 @@ const Orcamento = () => {
         destination_address: values.destination_address,
         preferred_date: values.preferred_date ? format(values.preferred_date, "yyyy-MM-dd") : null,
         message: values.message || null,
-      });
+      };
+
+      const { error } = await supabase.from("quote_requests").insert(quoteData);
 
       if (error) throw error;
+
+      // Send email notification (don't block on failure)
+      supabase.functions.invoke("notify-quote", {
+        body: quoteData,
+      }).catch((err) => {
+        console.error("Email notification failed:", err);
+      });
 
       setIsSuccess(true);
       form.reset();
