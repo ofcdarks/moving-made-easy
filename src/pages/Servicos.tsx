@@ -10,19 +10,24 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
-import serviceResidential from "@/assets/service-residential.jpg";
-import serviceCommercial from "@/assets/service-commercial.jpg";
-import serviceFreight from "@/assets/service-freight.jpg";
-import serviceLoading from "@/assets/service-loading.jpg";
-import serviceEvents from "@/assets/service-events.jpg";
-import servicePacking from "@/assets/service-packing.jpg";
+
+// Fotos reais da galeria
+import mudancaResidencial from "@/assets/mudanca-residencial.jpeg";
+import equipeCaixas from "@/assets/equipe-caixas.jpeg";
+import caminhaoVolvo from "@/assets/caminhao-volvo.jpeg";
+import caminhaoEmpilhadeira from "@/assets/caminhao-empilhadeira.jpeg";
+import funcionarioCaminhao from "@/assets/funcionario-caminhao.jpeg";
+import cargaPaletizada from "@/assets/carga-paletizada.jpeg";
+import carretaCarga from "@/assets/carreta-carga.jpeg";
+import equipeEmbalando from "@/assets/equipe-embalando.jpeg";
+import carregandoBicicleta from "@/assets/carregando-bicicleta.jpeg";
 
 const services: ServiceData[] = [
   {
     icon: Home,
     title: "Mudanças Residenciais",
     description: "Serviço completo para sua mudança residencial. Cuidamos de cada detalhe, desde a embalagem até a montagem dos móveis no novo endereço.",
-    image: serviceResidential,
+    image: mudancaResidencial,
     features: [
       "Embalagem profissional de todos os itens",
       "Desmontagem e montagem de móveis",
@@ -51,7 +56,7 @@ const services: ServiceData[] = [
     icon: Building2,
     title: "Mudanças Comerciais",
     description: "Minimize o tempo de parada do seu negócio. Nossa equipe está preparada para realizar mudanças comerciais com agilidade e eficiência.",
-    image: serviceCommercial,
+    image: equipeCaixas,
     features: [
       "Planejamento personalizado",
       "Mudança em horários alternativos",
@@ -80,7 +85,7 @@ const services: ServiceData[] = [
     icon: Share2,
     title: "Mudança Compartilhada",
     description: "Economize com nossa modalidade de mudança compartilhada. Ideal para quem quer reduzir custos dividindo o frete.",
-    image: serviceFreight,
+    image: carretaCarga,
     features: [
       "Custo reduzido significativamente",
       "Rotas otimizadas",
@@ -109,7 +114,7 @@ const services: ServiceData[] = [
     icon: Truck,
     title: "Fretes em Geral",
     description: "Transporte de cargas e mercadorias para qualquer destino. Caminhões baú de diversos tamanhos para atender sua necessidade.",
-    image: serviceFreight,
+    image: caminhaoVolvo,
     features: [
       "Frete local e interestadual",
       "Rastreamento da carga",
@@ -138,7 +143,7 @@ const services: ServiceData[] = [
     icon: Briefcase,
     title: "Agenciamento de Cargas",
     description: "Gerenciamos todo o processo logístico da sua carga, desde a coleta até a entrega final com eficiência.",
-    image: serviceLoading,
+    image: cargaPaletizada,
     features: [
       "Gestão completa de transporte",
       "Otimização de rotas",
@@ -167,7 +172,7 @@ const services: ServiceData[] = [
     icon: ArrowDownUp,
     title: "Carga e Descarga",
     description: "Equipe especializada para carregar e descarregar seus itens com todo cuidado e agilidade necessários.",
-    image: serviceLoading,
+    image: caminhaoEmpilhadeira,
     features: [
       "Equipe treinada",
       "Equipamentos adequados",
@@ -196,7 +201,7 @@ const services: ServiceData[] = [
     icon: CalendarCheck,
     title: "Transporte para Feiras e Eventos",
     description: "Transporte especializado para feiras, exposições e eventos. Pontualidade garantida para seu stand ou material.",
-    image: serviceEvents,
+    image: funcionarioCaminhao,
     features: [
       "Pontualidade garantida",
       "Montagem no local",
@@ -225,7 +230,7 @@ const services: ServiceData[] = [
     icon: Package,
     title: "Embalagem Profissional",
     description: "Proteja seus pertences com nosso serviço de embalagem profissional. Utilizamos materiais de alta qualidade.",
-    image: servicePacking,
+    image: equipeEmbalando,
     features: [
       "Caixas de papelão reforçado",
       "Plástico bolha e mantas",
@@ -254,7 +259,7 @@ const services: ServiceData[] = [
     icon: CalendarCheck,
     title: "Mudanças para Eventos",
     description: "Transporte especializado para mudanças de eventos, feiras e exposições com pontualidade e cuidado.",
-    image: serviceEvents,
+    image: carregandoBicicleta,
     features: [
       "Pontualidade garantida",
       "Transporte de equipamentos",
