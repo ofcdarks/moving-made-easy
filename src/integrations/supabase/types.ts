@@ -128,6 +128,42 @@ export type Database = {
         }
         Relationships: []
       }
+      google_reviews_cache: {
+        Row: {
+          business_name: string | null
+          cached_at: string
+          created_at: string
+          id: string
+          place_id: string
+          rating: number | null
+          reviews: Json | null
+          total_reviews: number | null
+          updated_at: string
+        }
+        Insert: {
+          business_name?: string | null
+          cached_at?: string
+          created_at?: string
+          id?: string
+          place_id: string
+          rating?: number | null
+          reviews?: Json | null
+          total_reviews?: number | null
+          updated_at?: string
+        }
+        Update: {
+          business_name?: string | null
+          cached_at?: string
+          created_at?: string
+          id?: string
+          place_id?: string
+          rating?: number | null
+          reviews?: Json | null
+          total_reviews?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       hero_content: {
         Row: {
           background_image_url: string | null
