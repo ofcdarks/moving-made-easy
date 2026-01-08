@@ -6,6 +6,7 @@ import {
   CalendarCheck, Briefcase, ArrowDownUp, Share2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
 import serviceResidential from "@/assets/service-residential.jpg";
 import serviceCommercial from "@/assets/service-commercial.jpg";
 import serviceFreight from "@/assets/service-freight.jpg";
@@ -130,7 +131,7 @@ const benefits = [
   { icon: Shield, text: "Seguro de carga" },
 ];
 
-const WHATSAPP_LINK = "https://wa.me/5514988340448?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
+const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 
 const Servicos = () => {
   return (
@@ -186,9 +187,11 @@ const Servicos = () => {
                     {service.description}
                   </p>
                   <a
-                    href={WHATSAPP_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openWhatsApp(WHATSAPP_TEXT);
+                    }}
                   >
                     <Button variant="outline" size="sm" className="w-full gap-2 hover:bg-gradient-orange hover:text-primary-foreground hover:border-transparent transition-all">
                       <Phone className="w-4 h-4" />
@@ -212,9 +215,11 @@ const Servicos = () => {
             Entre em contato conosco e vamos criar uma solução sob medida para você.
           </p>
           <a
-            href={WHATSAPP_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
+            onClick={(e) => {
+              e.preventDefault();
+              openWhatsApp(WHATSAPP_TEXT);
+            }}
           >
             <Button size="lg" className="gap-2 bg-gradient-orange shadow-orange text-lg px-8 py-6">
               <Phone className="w-5 h-5" />

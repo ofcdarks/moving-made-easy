@@ -3,15 +3,16 @@ import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { buildWhatsAppWebUrl, WHATSAPP_PHONE_DISPLAY } from "@/lib/whatsapp";
 
-const WHATSAPP_LINK = "https://wa.me/5514988340448?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
+const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 
 const contactInfo = [
   {
     icon: Phone,
     title: "Telefone / WhatsApp",
-    value: "(14) 99605-4098",
-    link: WHATSAPP_LINK,
+    value: WHATSAPP_PHONE_DISPLAY,
+    link: buildWhatsAppWebUrl(WHATSAPP_TEXT),
     action: "Chamar no WhatsApp",
   },
   {
@@ -100,13 +101,13 @@ const Contato = () => {
               nosso horário de atendimento!
             </p>
             <a
-              href={WHATSAPP_LINK}
+              href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
               target="_blank"
               rel="noopener noreferrer"
             >
               <Button size="lg" className="gap-2 bg-gradient-orange shadow-orange text-lg px-8 py-6">
                 <Phone className="w-5 h-5" />
-                (14) 99605-4098
+                {WHATSAPP_PHONE_DISPLAY}
               </Button>
             </a>
           </div>

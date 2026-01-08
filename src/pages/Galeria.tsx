@@ -5,6 +5,7 @@ import truckSunset from "@/assets/truck-sunset.jpeg";
 import truckLoading from "@/assets/truck-loading.jpeg";
 import truckCargo from "@/assets/truck-cargo.jpeg";
 import boxesInterior from "@/assets/boxes-interior.jpeg";
+import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
 
 const images = [
   { src: truckSunset, alt: "Caminhão LF Fretes ao pôr do sol", category: "Frota" },
@@ -70,9 +71,11 @@ const Galeria = () => {
                 Teremos prazer em mostrar mais do que fazemos!
               </p>
               <a
-                href="https://wa.me/5514988340448?text=Olá! Gostaria de ver mais fotos do trabalho de vocês."
-                target="_blank"
-                rel="noopener noreferrer"
+                href={buildWhatsAppWebUrl("Olá! Gostaria de ver mais fotos do trabalho de vocês.")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openWhatsApp("Olá! Gostaria de ver mais fotos do trabalho de vocês.");
+                }}
                 className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
               >
                 Falar no WhatsApp →

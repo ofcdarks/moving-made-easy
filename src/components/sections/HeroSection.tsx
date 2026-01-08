@@ -1,8 +1,9 @@
 import { ArrowRight, Shield, Clock, Truck, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import truckSunset from "@/assets/truck-sunset.jpeg";
+import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
 
-const WHATSAPP_LINK = "https://wa.me/5514988340448?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
+const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 
 const HeroSection = () => {
   return (
@@ -36,9 +37,11 @@ const HeroSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-slide-up animate-delay-300">
             <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
+              onClick={(e) => {
+                e.preventDefault();
+                openWhatsApp(WHATSAPP_TEXT);
+              }}
             >
               <Button size="lg" className="gap-2 bg-gradient-orange shadow-orange text-lg px-8 py-6">
                 <Phone className="w-5 h-5" />

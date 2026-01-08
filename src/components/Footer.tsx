@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock, Truck } from "lucide-react";
 import logoFull from "@/assets/logo-full.png";
+import { buildWhatsAppWebUrl, openWhatsApp, WHATSAPP_PHONE_DISPLAY } from "@/lib/whatsapp";
 
-const WHATSAPP_LINK = "https://wa.me/5514988340448?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
+const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
