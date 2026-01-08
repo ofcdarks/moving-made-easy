@@ -2,7 +2,8 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
-import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
+import AnimatedCounter from "@/components/AnimatedCounter";
+import { openWhatsApp } from "@/lib/whatsapp";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, X, Phone } from "lucide-react";
@@ -173,22 +174,38 @@ const Galeria = () => {
           </div>
 
           {/* Stats */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="bg-muted/50 rounded-xl p-6">
-              <p className="text-3xl font-black text-primary">{images.filter(i => i.category === 'frota').length}+</p>
-              <p className="text-muted-foreground text-sm">Veículos na Frota</p>
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center">
+            <div className="bg-card rounded-xl p-6 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <AnimatedCounter 
+                value="15+" 
+                className="text-3xl md:text-4xl font-black text-primary" 
+                duration={2000}
+              />
+              <p className="text-muted-foreground text-sm mt-2">Veículos na Frota</p>
             </div>
-            <div className="bg-muted/50 rounded-xl p-6">
-              <p className="text-3xl font-black text-primary">{images.length}+</p>
-              <p className="text-muted-foreground text-sm">Fotos na Galeria</p>
+            <div className="bg-card rounded-xl p-6 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <AnimatedCounter 
+                value="1000+" 
+                className="text-3xl md:text-4xl font-black text-primary" 
+                duration={2000}
+              />
+              <p className="text-muted-foreground text-sm mt-2">Entregas Realizadas</p>
             </div>
-            <div className="bg-muted/50 rounded-xl p-6">
-              <p className="text-3xl font-black text-primary">500+</p>
-              <p className="text-muted-foreground text-sm">Mudanças Realizadas</p>
+            <div className="bg-card rounded-xl p-6 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <AnimatedCounter 
+                value="10+" 
+                className="text-3xl md:text-4xl font-black text-primary" 
+                duration={2000}
+              />
+              <p className="text-muted-foreground text-sm mt-2">Anos de Experiência</p>
             </div>
-            <div className="bg-muted/50 rounded-xl p-6">
-              <p className="text-3xl font-black text-primary">100%</p>
-              <p className="text-muted-foreground text-sm">Clientes Satisfeitos</p>
+            <div className="bg-card rounded-xl p-6 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <AnimatedCounter 
+                value="99%" 
+                className="text-3xl md:text-4xl font-black text-primary" 
+                duration={2000}
+              />
+              <p className="text-muted-foreground text-sm mt-2">Clientes Satisfeitos</p>
             </div>
           </div>
 
