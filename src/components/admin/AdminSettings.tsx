@@ -40,9 +40,43 @@ const AdminSettings = () => {
     setIsLoading(false);
   };
 
+  const formatCNPJ = (value: string) => {
+    // Remove tudo que não é número
+    const numbers = value.replace(/\D/g, "");
+    // Limita a 14 dígitos
+    const limited = numbers.slice(0, 14);
+    // Aplica a máscara XX.XXX.XXX/XXXX-XX
+    return limited
+      .replace(/^(\d{2})(\d)/, "$1.$2")
+      .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+      .replace(/\.(\d{3})(\d)/, ".$1/$2")
+      .replace(/(\d{4})(\d)/, "$1-$2");
+  };
+
+  const formatPhone = (value: string) => {
+    const numbers = value.replace(/\D/g, "");
+    const limited = numbers.slice(0, 11);
+    if (limited.length <= 10) {
+      return limited
+        .replace(/^(\d{2})(\d)/, "($1) $2")
+        .replace(/(\d{4})(\d)/, "$1-$2");
+    }
+    return limited
+      .replace(/^(\d{2})(\d)/, "($1) $2")
+      .replace(/(\d{5})(\d)/, "$1-$2");
+  };
+
   const handleChange = (key: string, value: string) => {
+    let formattedValue = value;
+    
+    if (key === "cnpj") {
+      formattedValue = formatCNPJ(value);
+    } else if (key === "whatsapp_display" || key === "phone") {
+      formattedValue = formatPhone(value);
+    }
+    
     setSettings((prev) =>
-      prev.map((s) => (s.key === key ? { ...s, value } : s))
+      prev.map((s) => (s.key === key ? { ...s, value: formattedValue } : s))
     );
   };
 
