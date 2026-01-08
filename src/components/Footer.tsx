@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock, Truck } from "lucide-react";
 import logoFull from "@/assets/logo-full.png";
 
-const WHATSAPP_LINK = "https://wa.me/5514996054098?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
+const WHATSAPP_LINK = "https://wa.me/5514988340448?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -82,7 +82,7 @@ const Footer = () => {
                   className="flex items-center gap-3 text-secondary-foreground/70 hover:text-primary transition-colors"
                 >
                   <Phone className="w-5 h-5 text-primary" />
-                  <span className="text-sm">(14) 99605-4098</span>
+                  <span className="text-sm">(14) 98834-0448</span>
                 </a>
               </li>
               <li className="flex items-center gap-3 text-secondary-foreground/70">
