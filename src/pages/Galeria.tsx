@@ -70,7 +70,7 @@ const Galeria = () => {
                 Teremos prazer em mostrar mais do que fazemos!
               </p>
               <a
-                href="https://wa.me/5514996054098?text=Olá! Gostaria de ver mais fotos do trabalho de vocês."
+                href="https://wa.me/5514988340448?text=Olá! Gostaria de ver mais fotos do trabalho de vocês."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
