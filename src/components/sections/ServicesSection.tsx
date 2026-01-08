@@ -8,6 +8,16 @@ import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import AnimatedCard from "@/components/AnimatedCard";
 
+// Fotos reais da galeria para os serviços
+import mudancaResidencial from "@/assets/mudanca-residencial.jpeg";
+import equipeCaixas from "@/assets/equipe-caixas.jpeg";
+import equipeEmbalando from "@/assets/equipe-embalando.jpeg";
+import caminhaoEmpilhadeira from "@/assets/caminhao-empilhadeira.jpeg";
+import caminhaoVolvo from "@/assets/caminhao-volvo.jpeg";
+import carretaCarga from "@/assets/carreta-carga.jpeg";
+import funcionarioCaminhao from "@/assets/funcionario-caminhao.jpeg";
+import cargaPaletizada from "@/assets/carga-paletizada.jpeg";
+
 const iconMap: Record<string, LucideIcon> = {
   Home,
   Building2,
@@ -22,14 +32,14 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 const defaultServices = [
-  { icon: "Home", title: "Mudanças Residenciais", short_description: "Transporte seguro de todos os seus móveis e pertences para sua nova casa." },
-  { icon: "Building2", title: "Mudanças Comerciais", short_description: "Relocação de escritórios e empresas com mínimo impacto nas operações." },
-  { icon: "Package", title: "Embalagem Profissional", short_description: "Serviço completo de embalagem com materiais de alta qualidade." },
-  { icon: "Wrench", title: "Montagem e Desmontagem", short_description: "Desmontamos e montamos seus móveis com cuidado e precisão." },
-  { icon: "Truck", title: "Transporte de Cargas", short_description: "Frete para cargas diversas com segurança e pontualidade." },
-  { icon: "CalendarCheck", title: "Mudanças para Eventos", short_description: "Logística completa para transporte de materiais de eventos." },
-  { icon: "ArrowDownUp", title: "Carga e Descarga", short_description: "Equipe especializada para carregar e descarregar com agilidade." },
-  { icon: "Shield", title: "Seguro de Carga", short_description: "Proteção total para seus bens durante todo o transporte." },
+  { icon: "Home", title: "Mudanças Residenciais", short_description: "Transporte seguro de todos os seus móveis e pertences para sua nova casa.", image_url: mudancaResidencial },
+  { icon: "Building2", title: "Mudanças Comerciais", short_description: "Relocação de escritórios e empresas com mínimo impacto nas operações.", image_url: equipeCaixas },
+  { icon: "Package", title: "Embalagem Profissional", short_description: "Serviço completo de embalagem com materiais de alta qualidade.", image_url: equipeEmbalando },
+  { icon: "Wrench", title: "Montagem e Desmontagem", short_description: "Desmontamos e montamos seus móveis com cuidado e precisão.", image_url: funcionarioCaminhao },
+  { icon: "Truck", title: "Transporte de Cargas", short_description: "Frete para cargas diversas com segurança e pontualidade.", image_url: caminhaoVolvo },
+  { icon: "CalendarCheck", title: "Mudanças para Eventos", short_description: "Logística completa para transporte de materiais de eventos.", image_url: carretaCarga },
+  { icon: "ArrowDownUp", title: "Carga e Descarga", short_description: "Equipe especializada para carregar e descarregar com agilidade.", image_url: caminhaoEmpilhadeira },
+  { icon: "Shield", title: "Seguro de Carga", short_description: "Proteção total para seus bens durante todo o transporte.", image_url: cargaPaletizada },
 ];
 
 const ServicesSection = () => {
@@ -84,15 +94,14 @@ const ServicesSection = () => {
               return (
                 <AnimatedCard key={'id' in service ? String(service.id) : index} delay={index * 100}>
                   <div className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
-                    {imageUrl ? (
-                      <div className="h-40 overflow-hidden">
-                        <img 
-                          src={imageUrl} 
-                          alt={service.title} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    ) : null}
+                    <div className="h-40 overflow-hidden">
+                      <img 
+                        src={imageUrl || (defaultServices[index]?.image_url as string)} 
+                        alt={service.title} 
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
                     <div className="p-6">
                       <div className="w-12 h-12 bg-brand-orange-light rounded-xl flex items-center justify-center mb-4 group-hover:bg-gradient-orange group-hover:scale-110 transition-all duration-300">
                         <IconComponent className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />

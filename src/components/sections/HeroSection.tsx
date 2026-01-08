@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import caminhaoScania from "@/assets/caminhao-scania.jpeg";
-import equipeTrabalhando from "@/assets/equipe-trabalho.jpeg";
+import caminhaoVolvo from "@/assets/caminhao-volvo.jpeg";
 import caminhaoMercedes from "@/assets/caminhao-mercedes.jpeg";
 import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -19,8 +19,8 @@ const DEFAULT_PHRASES = [
   "Eficiência e Qualidade",
 ];
 
-// Apenas 3 melhores fotos
-const DEFAULT_IMAGES = [caminhaoScania, equipeTrabalhando, caminhaoMercedes];
+// 3 melhores fotos de caminhões
+const DEFAULT_IMAGES = [caminhaoScania, caminhaoVolvo, caminhaoMercedes];
 
 const HeroSection = () => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -90,16 +90,12 @@ const HeroSection = () => {
   // Get transition time from DB or use default (8 seconds)
   const transitionTime = (heroContent?.image_transition_time || 8) * 1000;
 
-  // Image rotation effect - transição suave
+  // Image rotation effect - crossfade suave sem fundo visível
   useEffect(() => {
     if (allImages.length <= 1) return;
     
     const interval = setInterval(() => {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
-        setTimeout(() => setIsTransitioning(false), 100);
-      }, 1000); // Wait for fade out before changing
+      setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
     }, transitionTime);
 
     return () => clearInterval(interval);
@@ -108,18 +104,20 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       {/* Background Images with smooth crossfade and Ken Burns effect */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 bg-secondary">
         {allImages.map((img, index) => {
           const isActive = index === currentImageIndex;
+          const isPrev = index === (currentImageIndex - 1 + allImages.length) % allImages.length;
           return (
             <div
               key={`hero-bg-${index}`}
-              className={`absolute inset-0 transition-all duration-[2000ms] ease-in-out ${
-                isActive && !isTransitioning 
-                  ? "opacity-100" 
-                  : "opacity-0"
+              className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
+                isActive 
+                  ? "opacity-100 z-[2]" 
+                  : isPrev 
+                    ? "opacity-100 z-[1]" 
+                    : "opacity-0 z-0"
               }`}
-              style={{ zIndex: isActive ? 1 : 0 }}
             >
               <img
                 src={img}
