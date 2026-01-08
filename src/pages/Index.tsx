@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
+import CookieBanner from "@/components/CookieBanner";
 import HeroSection from "@/components/sections/HeroSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import AboutSection from "@/components/sections/AboutSection";
@@ -22,6 +23,7 @@ const Index = () => {
       <CTASection />
       <Footer />
       <ChatWidget />
+      <CookieBanner />
     </main>
   );
 };
