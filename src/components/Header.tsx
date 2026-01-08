@@ -3,8 +3,9 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoFull from "@/assets/logo-full.png";
+import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
 
-const WHATSAPP_LINK = "https://wa.me/5514988340448?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
+const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -71,9 +72,11 @@ const Header = () => {
 
           <div className="hidden lg:flex items-center gap-4">
             <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
+              onClick={(e) => {
+                e.preventDefault();
+                openWhatsApp(WHATSAPP_TEXT);
+              }}
             >
               <Button variant="default" size="lg" className="gap-2 bg-gradient-orange shadow-orange hover:opacity-90">
                 <Phone className="w-4 h-4" />
@@ -115,9 +118,11 @@ const Header = () => {
               ))}
               <li className="px-4 pt-4">
                 <a
-                  href={WHATSAPP_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openWhatsApp(WHATSAPP_TEXT);
+                  }}
                 >
                   <Button variant="default" className="w-full gap-2 bg-gradient-orange">
                     <Phone className="w-4 h-4" />
