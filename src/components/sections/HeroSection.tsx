@@ -17,7 +17,9 @@ const ROTATING_PHRASES = [
 
 const HeroSection = () => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const { data: heroContent, isLoading } = useQuery({
     queryKey: ["hero-content"],
     queryFn: async () => {
@@ -33,16 +35,30 @@ const HeroSection = () => {
   });
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setCurrentPhraseIndex((prev) => (prev + 1) % ROTATING_PHRASES.length);
-        setIsAnimating(false);
-      }, 500);
-    }, 4000);
+    const currentPhrase = ROTATING_PHRASES[currentPhraseIndex];
+    
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        // Typing
+        if (displayedText.length < currentPhrase.length) {
+          setDisplayedText(currentPhrase.slice(0, displayedText.length + 1));
+        } else {
+          // Pause before deleting
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        // Deleting
+        if (displayedText.length > 0) {
+          setDisplayedText(displayedText.slice(0, -1));
+        } else {
+          setIsDeleting(false);
+          setCurrentPhraseIndex((prev) => (prev + 1) % ROTATING_PHRASES.length);
+        }
+      }
+    }, isDeleting ? 30 : 80);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearTimeout(timeout);
+  }, [displayedText, isDeleting, currentPhraseIndex]);
 
   const backgroundImage = heroContent?.background_image_url || truckSunset;
 
@@ -77,12 +93,9 @@ const HeroSection = () => {
               
               <h1 className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-6 animate-slide-up animate-delay-100">
                 Mudanças e Fretes com{" "}
-                <span 
-                  className={`text-gradient-orange inline-block transition-all duration-500 ${
-                    isAnimating ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
-                  }`}
-                >
-                  {ROTATING_PHRASES[currentPhraseIndex]}
+                <span className="text-gradient-orange">
+                  {displayedText}
+                  <span className="animate-pulse">|</span>
                 </span>
               </h1>
               
