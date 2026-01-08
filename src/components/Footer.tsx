@@ -8,6 +8,33 @@ const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const quickLinks = [
+    { href: "#inicio", label: "Início" },
+    { href: "#sobre", label: "Sobre Nós" },
+    { href: "#servicos", label: "Serviços" },
+    { href: "#galeria", label: "Galeria" },
+    { href: "#contato", label: "Contato" },
+  ];
+
+  const serviceLinks = [
+    { href: "/servicos#residencial", label: "Mudanças Residenciais" },
+    { href: "/servicos#comercial", label: "Mudanças Comerciais" },
+    { href: "/servicos#compartilhada", label: "Mudança Compartilhada" },
+    { href: "/servicos#fretes", label: "Fretes em Geral" },
+    { href: "/servicos#agenciamento", label: "Agenciamento de Cargas" },
+    { href: "/servicos#eventos", label: "Transporte para Feiras" },
+  ];
+
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.querySelector(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.href = "/" + id;
+    }
+  };
+
   return (
     <footer className="bg-secondary text-secondary-foreground">
       <div className="container mx-auto px-4 py-16">
@@ -35,13 +62,27 @@ const Footer = () => {
               Links Rápidos
             </h3>
             <ul className="space-y-3">
-              {[
-                { href: "/", label: "Início" },
-                { href: "/sobre", label: "Sobre Nós" },
-                { href: "/servicos", label: "Serviços" },
-                { href: "/galeria", label: "Galeria" },
-                { href: "/contato", label: "Contato" },
-              ].map((link) => (
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleScrollTo(e, link.href)}
+                    className="text-sm text-secondary-foreground/70 hover:text-primary transition-colors cursor-pointer"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h3 className="text-primary-foreground font-display font-bold text-lg mb-6">
+              Nossos Serviços
+            </h3>
+            <ul className="space-y-3">
+              {serviceLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     to={link.href}
@@ -54,21 +95,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
-          <div>
-            <h3 className="text-primary-foreground font-display font-bold text-lg mb-6">
-              Nossos Serviços
-            </h3>
-            <ul className="space-y-3 text-sm text-secondary-foreground/70">
-              <li>Mudanças Residenciais</li>
-              <li>Mudanças Comerciais</li>
-              <li>Mudança Compartilhada</li>
-              <li>Fretes em Geral</li>
-              <li>Agenciamento de Cargas</li>
-              <li>Transporte para Feiras</li>
-            </ul>
-          </div>
-
           {/* Contact */}
           <div>
             <h3 className="text-primary-foreground font-display font-bold text-lg mb-6">
@@ -77,18 +103,22 @@ const Footer = () => {
             <ul className="space-y-4">
               <li>
                 <a
-                  href={WHATSAPP_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-secondary-foreground/70 hover:text-primary transition-colors"
+                  href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openWhatsApp(WHATSAPP_TEXT);
+                  }}
+                  className="flex items-center gap-3 text-secondary-foreground/70 hover:text-primary transition-colors cursor-pointer"
                 >
                   <Phone className="w-5 h-5 text-primary" />
-                  <span className="text-sm">(14) 98834-0448</span>
+                  <span className="text-sm">{WHATSAPP_PHONE_DISPLAY}</span>
                 </a>
               </li>
               <li className="flex items-center gap-3 text-secondary-foreground/70">
                 <Mail className="w-5 h-5 text-primary" />
-                <span className="text-sm">contato@lffretes.com.br</span>
+                <a href="mailto:contato@fretesembauru.com.br" className="text-sm hover:text-primary transition-colors">
+                  contato@fretesembauru.com.br
+                </a>
               </li>
               <li className="flex items-start gap-3 text-secondary-foreground/70">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
@@ -102,10 +132,27 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-secondary-foreground/10 mt-12 pt-8 text-center">
-          <p className="text-sm text-secondary-foreground/60">
-            © {currentYear} LF Fretes e Mudanças. Todos os direitos reservados.
-          </p>
+        {/* Bottom section with policies */}
+        <div className="border-t border-secondary-foreground/10 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-secondary-foreground/60">
+              © {currentYear} LF Fretes e Mudanças. Todos os direitos reservados.
+            </p>
+            <div className="flex items-center gap-6">
+              <Link
+                to="/politica-de-privacidade"
+                className="text-sm text-secondary-foreground/60 hover:text-primary transition-colors"
+              >
+                Política de Privacidade
+              </Link>
+              <Link
+                to="/politica-de-cookies"
+                className="text-sm text-secondary-foreground/60 hover:text-primary transition-colors"
+              >
+                Política de Cookies
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
