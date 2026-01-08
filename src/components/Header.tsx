@@ -43,7 +43,9 @@ const Header = () => {
             <img 
               src={logoFull} 
               alt="LF Fretes e Mudanças" 
-              className="h-10 md:h-12 w-auto brightness-0 invert"
+              className={`h-10 md:h-12 w-auto transition-all duration-300 ${
+                isScrolled ? "" : "brightness-0 invert"
+              }`}
             />
           </Link>
 
@@ -58,7 +60,7 @@ const Header = () => {
                       ? "text-primary"
                       : isScrolled
                       ? "text-foreground"
-                      : "text-foreground"
+                      : "text-white"
                   }`}
                 >
                   {link.label}
@@ -82,7 +84,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2"
+            className={`lg:hidden p-2 transition-colors ${isScrolled ? "text-foreground" : "text-white"}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
