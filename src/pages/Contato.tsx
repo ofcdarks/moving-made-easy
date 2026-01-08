@@ -1,44 +1,82 @@
+import { useQuery } from "@tanstack/react-query";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
-import { Phone, Mail, MapPin, Clock, MessageCircle, Truck } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppWebUrl, WHATSAPP_PHONE_DISPLAY } from "@/lib/whatsapp";
+import { supabase } from "@/integrations/supabase/client";
 
 const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 
-const contactInfo = [
-  {
-    icon: Phone,
-    title: "Telefone / WhatsApp",
-    value: WHATSAPP_PHONE_DISPLAY,
-    link: buildWhatsAppWebUrl(WHATSAPP_TEXT),
-    action: "Chamar no WhatsApp",
-  },
-  {
-    icon: Mail,
-    title: "E-mail",
-    value: "contato@lffretes.com.br",
-    link: "mailto:contato@lffretes.com.br",
-    action: "Enviar e-mail",
-  },
-  {
-    icon: Clock,
-    title: "Horário de Atendimento",
-    value: "Segunda a Sábado, 07:00 - 19:00",
-    link: null,
-    action: null,
-  },
-  {
-    icon: MapPin,
-    title: "Área de Atendimento",
-    value: "São Paulo, SP - Atendemos todo o Brasil",
-    link: null,
-    action: null,
-  },
-];
-
 const Contato = () => {
+  const { data: settings } = useQuery({
+    queryKey: ["site-settings"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("key, value");
+      if (error) throw error;
+      return data?.reduce((acc, item) => {
+        acc[item.key] = item.value;
+        return acc;
+      }, {} as Record<string, string | null>);
+    },
+  });
+
+  const phone = settings?.whatsapp_display || WHATSAPP_PHONE_DISPLAY;
+  const email = settings?.email || "contato@fretesembauru.com.br";
+  const address = settings?.address || "Bauru, SP - Atendemos toda a região";
+  const hours = settings?.business_hours || "Segunda a Sábado, 07:00 - 19:00";
+  const mapsEmbed = settings?.gmb_maps_embed;
+  const placeId = settings?.gmb_place_id;
+
+  const contactInfo = [
+    {
+      icon: Phone,
+      title: "Telefone / WhatsApp",
+      value: phone,
+      link: buildWhatsAppWebUrl(WHATSAPP_TEXT),
+      action: "Chamar no WhatsApp",
+    },
+    {
+      icon: Mail,
+      title: "E-mail",
+      value: email,
+      link: `mailto:${email}`,
+      action: "Enviar e-mail",
+    },
+    {
+      icon: Clock,
+      title: "Horário de Atendimento",
+      value: hours,
+      link: null,
+      action: null,
+    },
+    {
+      icon: MapPin,
+      title: "Endereço",
+      value: address,
+      link: placeId ? `https://www.google.com/maps/place/?q=place_id:${placeId}` : null,
+      action: placeId ? "Ver no Mapa" : null,
+    },
+  ];
+
+  // Generate Google Maps embed URL from Place ID
+  const getMapUrl = () => {
+    if (mapsEmbed) {
+      // If there's a custom embed code, extract the src
+      const srcMatch = mapsEmbed.match(/src="([^"]+)"/);
+      if (srcMatch) return srcMatch[1];
+    }
+    if (placeId) {
+      // Use Place ID to generate embed URL
+      return `https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=place_id:${placeId}&language=pt-BR`;
+    }
+    // Default to Bauru location
+    return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59424.83494965887!2d-49.0894!3d-22.3246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94bf67b0e0b11c8d%3A0xa13ac4d6c3e0b9a0!2sBauru%2C%20SP!5e0!3m2!1spt-BR!2sbr!4v1704067200000!5m2!1spt-BR!2sbr`;
+  };
+
   return (
     <main className="min-h-screen">
       <Header />
@@ -107,34 +145,52 @@ const Contato = () => {
             >
               <Button size="lg" className="gap-2 bg-gradient-orange shadow-orange text-lg px-8 py-6">
                 <Phone className="w-5 h-5" />
-                {WHATSAPP_PHONE_DISPLAY}
+                {phone}
               </Button>
             </a>
           </div>
         </div>
       </section>
 
-      {/* Map placeholder */}
+      {/* Google Maps */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="font-display font-bold text-2xl mb-4">
-                Área de Atendimento
+              <h2 className="font-display font-bold text-2xl md:text-3xl mb-4">
+                Nossa <span className="text-gradient-orange">Localização</span>
               </h2>
-              <p className="text-muted-foreground">
-                Realizamos mudanças e fretes para todo o Brasil. 
-                Entre em contato para saber mais sobre atendimento na sua região.
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                {address}. Realizamos mudanças e fretes para todo o Brasil!
               </p>
             </div>
-            <div className="bg-muted rounded-2xl p-12 flex items-center justify-center">
-              <div className="text-center">
-                <Truck className="w-16 h-16 text-primary/30 mx-auto mb-4" />
-                <p className="text-muted-foreground">
-                  São Paulo, SP - Atendemos todo o Brasil
-                </p>
-              </div>
+            <div className="rounded-2xl overflow-hidden shadow-lg border border-border">
+              <iframe
+                src={getMapUrl()}
+                width="100%"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Localização LF Fretes e Mudanças"
+                className="w-full"
+              />
             </div>
+            {placeId && (
+              <div className="text-center mt-6">
+                <a
+                  href={`https://www.google.com/maps/dir/?api=1&destination_place_id=${placeId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button variant="outline" size="lg" className="gap-2">
+                    <MapPin className="w-5 h-5" />
+                    Traçar Rota
+                  </Button>
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </section>
