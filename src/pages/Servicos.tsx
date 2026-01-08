@@ -1,7 +1,10 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
-import { Home, Building2, Truck, Package, Wrench, Box, MapPin, Clock, Shield, Phone } from "lucide-react";
+import { 
+  Home, Building2, Truck, Package, Wrench, Box, MapPin, Clock, Shield, Phone,
+  CalendarCheck, Users, ArrowDownUp, Briefcase, Share2
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const services = [
@@ -28,6 +31,17 @@ const services = [
     ],
   },
   {
+    icon: Share2,
+    title: "Mudança Compartilhada",
+    description: "Economize com nossa modalidade de mudança compartilhada. Ideal para quem quer reduzir custos dividindo o frete.",
+    features: [
+      "Custo reduzido",
+      "Rotas otimizadas",
+      "Prazo flexível",
+      "Ideal para pequenos volumes",
+    ],
+  },
+  {
     icon: Truck,
     title: "Fretes em Geral",
     description: "Transporte de cargas e mercadorias para qualquer destino. Caminhões baú de diversos tamanhos para atender sua necessidade.",
@@ -36,6 +50,39 @@ const services = [
       "Rastreamento da carga",
       "Entrega expressa disponível",
       "Caminhões de diversos tamanhos",
+    ],
+  },
+  {
+    icon: Briefcase,
+    title: "Agenciamento de Cargas",
+    description: "Gerenciamos todo o processo logístico da sua carga, desde a coleta até a entrega final com eficiência.",
+    features: [
+      "Gestão completa de transporte",
+      "Otimização de rotas",
+      "Acompanhamento em tempo real",
+      "Documentação fiscal",
+    ],
+  },
+  {
+    icon: ArrowDownUp,
+    title: "Carga e Descarga",
+    description: "Equipe especializada para carregar e descarregar seus itens com todo cuidado e agilidade necessários.",
+    features: [
+      "Equipe treinada",
+      "Equipamentos adequados",
+      "Manuseio cuidadoso",
+      "Organização eficiente",
+    ],
+  },
+  {
+    icon: CalendarCheck,
+    title: "Transporte para Feiras e Eventos",
+    description: "Transporte especializado para feiras, exposições e eventos. Pontualidade garantida para seu stand ou material.",
+    features: [
+      "Pontualidade garantida",
+      "Montagem no local",
+      "Cuidado com materiais delicados",
+      "Atendimento a eventos corporativos",
     ],
   },
   {
@@ -89,16 +136,16 @@ const Servicos = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="font-display font-black text-4xl md:text-5xl text-primary-foreground mb-6">
-              Nossos <span className="text-gradient-orange">Serviços</span>
+              Nossos <span className="text-gradient-red">Serviços</span>
             </h1>
-            <p className="text-lg text-muted-foreground mb-8">
-              Soluções completas para sua mudança ou frete
+            <p className="text-lg text-secondary-foreground/80 mb-8">
+              Soluções logísticas completas para sua mudança ou frete
             </p>
             <div className="flex flex-wrap justify-center gap-6">
               {benefits.map((benefit, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <benefit.icon className="w-5 h-5 text-primary" />
-                  <span className="text-sm text-muted-foreground">{benefit.text}</span>
+                  <span className="text-sm text-secondary-foreground/70">{benefit.text}</span>
                 </div>
               ))}
             </div>
@@ -106,53 +153,42 @@ const Servicos = () => {
         </div>
       </section>
 
-      {/* Services */}
+      {/* Services Grid */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="space-y-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <div
                 key={index}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
+                className="group bg-card rounded-2xl p-8 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-border"
               >
-                <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="w-16 h-16 bg-brand-orange-light rounded-2xl flex items-center justify-center mb-6">
-                    <service.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <h2 className="font-display font-bold text-2xl md:text-3xl mb-4">
-                    {service.title}
-                  </h2>
-                  <p className="text-muted-foreground mb-6">
-                    {service.description}
-                  </p>
-                  <ul className="space-y-3 mb-8">
-                    {service.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-primary rounded-full" />
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href="https://wa.me/5514996054098?text=Olá! Gostaria de saber mais sobre o serviço de ${service.title}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button className="gap-2 bg-gradient-orange shadow-orange">
-                      <Phone className="w-4 h-4" />
-                      Solicitar Orçamento
-                    </Button>
-                  </a>
+                <div className="w-14 h-14 bg-brand-red-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-gradient-red group-hover:scale-110 transition-all duration-300">
+                  <service.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors" />
                 </div>
-                <div
-                  className={`bg-muted/50 rounded-2xl p-12 flex items-center justify-center ${
-                    index % 2 === 1 ? "lg:order-1" : ""
-                  }`}
+                <h3 className="font-display font-bold text-xl mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                  {service.description}
+                </p>
+                <ul className="space-y-2 mb-6">
+                  {service.features.slice(0, 3).map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm">
+                      <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                      <span className="text-muted-foreground">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={`https://wa.me/5514996054098?text=Olá! Gostaria de saber mais sobre ${service.title}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <service.icon className="w-32 h-32 text-primary/20" />
-                </div>
+                  <Button variant="outline" size="sm" className="w-full gap-2 group-hover:bg-gradient-red group-hover:text-primary-foreground group-hover:border-transparent transition-all">
+                    <Phone className="w-4 h-4" />
+                    Solicitar Orçamento
+                  </Button>
+                </a>
               </div>
             ))}
           </div>
@@ -165,7 +201,7 @@ const Servicos = () => {
           <h2 className="font-display font-black text-3xl md:text-4xl text-primary-foreground mb-6">
             Precisa de um serviço personalizado?
           </h2>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-secondary-foreground/70 mb-8 max-w-2xl mx-auto">
             Entre em contato conosco e vamos criar uma solução sob medida para você.
           </p>
           <a
@@ -173,7 +209,7 @@ const Servicos = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button size="lg" className="gap-2 bg-gradient-orange shadow-orange text-lg px-8 py-6">
+            <Button size="lg" className="gap-2 bg-gradient-red shadow-red text-lg px-8 py-6">
               <Phone className="w-5 h-5" />
               Falar com Especialista
             </Button>

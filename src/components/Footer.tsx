@@ -6,13 +6,13 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-brand-dark text-muted-foreground">
+    <footer className="bg-secondary text-secondary-foreground">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & Description */}
           <div className="space-y-4">
             <img src={logo} alt="LF Fretes e Mudanças" className="h-14 brightness-0 invert" />
-            <p className="text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed text-secondary-foreground/70">
               Sua mudança em boas mãos. Oferecemos serviços de fretes e mudanças com segurança,
               pontualidade e o melhor custo-benefício do mercado.
             </p>
@@ -38,7 +38,7 @@ const Footer = () => {
                 <li key={link.href}>
                   <Link
                     to={link.href}
-                    className="text-sm hover:text-primary transition-colors"
+                    className="text-sm text-secondary-foreground/70 hover:text-primary transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -52,12 +52,13 @@ const Footer = () => {
             <h3 className="text-primary-foreground font-display font-bold text-lg mb-6">
               Nossos Serviços
             </h3>
-            <ul className="space-y-3 text-sm">
+            <ul className="space-y-3 text-sm text-secondary-foreground/70">
               <li>Mudanças Residenciais</li>
               <li>Mudanças Comerciais</li>
+              <li>Mudança Compartilhada</li>
               <li>Fretes em Geral</li>
-              <li>Transporte de Cargas</li>
-              <li>Montagem e Desmontagem</li>
+              <li>Agenciamento de Cargas</li>
+              <li>Transporte para Feiras</li>
             </ul>
           </div>
 
@@ -72,21 +73,21 @@ const Footer = () => {
                   href="https://wa.me/5514996054098"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 hover:text-primary transition-colors"
+                  className="flex items-center gap-3 text-secondary-foreground/70 hover:text-primary transition-colors"
                 >
                   <Phone className="w-5 h-5 text-primary" />
                   <span className="text-sm">(14) 99605-4098</span>
                 </a>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-3 text-secondary-foreground/70">
                 <Mail className="w-5 h-5 text-primary" />
                 <span className="text-sm">contato@lffretes.com.br</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3 text-secondary-foreground/70">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
                 <span className="text-sm">São Paulo, SP - Atendemos todo o Brasil</span>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-3 text-secondary-foreground/70">
                 <Clock className="w-5 h-5 text-primary" />
                 <span className="text-sm">Seg - Sáb: 07:00 - 19:00</span>
               </li>
@@ -94,8 +95,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-muted/20 mt-12 pt-8 text-center">
-          <p className="text-sm">
+        <div className="border-t border-secondary-foreground/10 mt-12 pt-8 text-center">
+          <p className="text-sm text-secondary-foreground/60">
             © {currentYear} LF Fretes e Mudanças. Todos os direitos reservados.
           </p>
         </div>

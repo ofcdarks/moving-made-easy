@@ -67,7 +67,7 @@ const Header = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button variant="default" size="lg" className="gap-2 bg-gradient-orange shadow-orange hover:opacity-90">
+              <Button variant="default" size="lg" className="gap-2 bg-gradient-red shadow-red hover:opacity-90">
                 <Phone className="w-4 h-4" />
                 Orçamento Grátis
               </Button>
@@ -111,7 +111,7 @@ const Header = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Button variant="default" className="w-full gap-2 bg-gradient-orange">
+                  <Button variant="default" className="w-full gap-2 bg-gradient-red">
                     <Phone className="w-4 h-4" />
                     Orçamento Grátis
                   </Button>

@@ -1,4 +1,7 @@
-import { Home, Building2, Truck, Package, Wrench, Box } from "lucide-react";
+import { 
+  Home, Building2, Truck, Package, Wrench, Box, Share2, Briefcase, 
+  ArrowDownUp, CalendarCheck 
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const services = [
@@ -13,24 +16,34 @@ const services = [
     description: "Minimize o tempo de parada do seu negócio com nossa equipe especializada.",
   },
   {
+    icon: Share2,
+    title: "Mudança Compartilhada",
+    description: "Economize dividindo o frete. Ideal para quem busca custo reduzido.",
+  },
+  {
     icon: Truck,
     title: "Fretes em Geral",
     description: "Transporte de cargas e mercadorias com segurança para qualquer destino.",
   },
   {
+    icon: Briefcase,
+    title: "Agenciamento de Cargas",
+    description: "Gestão completa do processo logístico da sua carga.",
+  },
+  {
+    icon: ArrowDownUp,
+    title: "Carga e Descarga",
+    description: "Equipe especializada para manusear seus itens com cuidado.",
+  },
+  {
+    icon: CalendarCheck,
+    title: "Transporte para Feiras",
+    description: "Transporte especializado para feiras, exposições e eventos.",
+  },
+  {
     icon: Package,
     title: "Embalagem Profissional",
     description: "Materiais de qualidade e técnicas profissionais para proteger seus pertences.",
-  },
-  {
-    icon: Wrench,
-    title: "Montagem e Desmontagem",
-    description: "Equipe capacitada para montar e desmontar seus móveis com cuidado.",
-  },
-  {
-    icon: Box,
-    title: "Armazenamento",
-    description: "Guarde seus pertences em local seguro durante sua transição.",
   },
 ];
 
@@ -43,24 +56,24 @@ const ServicesSection = () => {
             O que fazemos
           </span>
           <h2 className="font-display font-black text-3xl md:text-4xl lg:text-5xl mb-4">
-            Nossos <span className="text-gradient-orange">Serviços</span>
+            Nossos <span className="text-gradient-red">Serviços</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Oferecemos soluções completas para sua mudança ou frete, 
+            Soluções logísticas completas para sua mudança ou frete, 
             com equipe qualificada e equipamentos adequados.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <div
               key={index}
-              className="group bg-card rounded-2xl p-8 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="group bg-card rounded-2xl p-6 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="w-14 h-14 bg-brand-orange-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-gradient-orange group-hover:scale-110 transition-all duration-300">
-                <service.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors" />
+              <div className="w-12 h-12 bg-brand-red-light rounded-xl flex items-center justify-center mb-4 group-hover:bg-gradient-red group-hover:scale-110 transition-all duration-300">
+                <service.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
               </div>
-              <h3 className="font-display font-bold text-xl mb-3">
+              <h3 className="font-display font-bold text-lg mb-2">
                 {service.title}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
