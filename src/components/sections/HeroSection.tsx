@@ -27,6 +27,7 @@ const HeroSection = () => {
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const { data: heroContent, isLoading } = useQuery({
     queryKey: ["hero-content"],
@@ -94,7 +95,11 @@ const HeroSection = () => {
     if (allImages.length <= 1) return;
     
     const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+        setTimeout(() => setIsTransitioning(false), 100);
+      }, 1000); // Wait for fade out before changing
     }, transitionTime);
 
     return () => clearInterval(interval);
@@ -104,25 +109,31 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       {/* Background Images with smooth crossfade and Ken Burns effect */}
       <div className="absolute inset-0 z-0">
-        {allImages.map((img, index) => (
-          <div
-            key={`${img}-${index}`}
-            className={`absolute inset-0 transition-opacity duration-[3000ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              index === currentImageIndex ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <img
-              src={img}
-              alt="Caminhão LF Fretes"
-              className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[10000ms] ease-linear ${
-                index === currentImageIndex 
-                  ? "scale-110" 
-                  : "scale-100"
+        {allImages.map((img, index) => {
+          const isActive = index === currentImageIndex;
+          return (
+            <div
+              key={`hero-bg-${index}`}
+              className={`absolute inset-0 transition-all duration-[2000ms] ease-in-out ${
+                isActive && !isTransitioning 
+                  ? "opacity-100" 
+                  : "opacity-0"
               }`}
-            />
-          </div>
-        ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/85 to-secondary/50" />
+              style={{ zIndex: isActive ? 1 : 0 }}
+            >
+              <img
+                src={img}
+                alt="LF Fretes e Mudanças"
+                className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[12000ms] ease-out ${
+                  isActive 
+                    ? "scale-110" 
+                    : "scale-100"
+                }`}
+              />
+            </div>
+          );
+        })}
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/85 to-secondary/50 z-10" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
