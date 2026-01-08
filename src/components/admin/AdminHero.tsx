@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Save } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Save, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,12 +14,15 @@ interface HeroContent {
   highlight_text: string | null;
   cta_text: string | null;
   cta_link: string | null;
+  background_image_url: string | null;
 }
 
 const AdminHero = () => {
   const [content, setContent] = useState<HeroContent | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -30,6 +33,41 @@ const AdminHero = () => {
     const { data } = await supabase.from("hero_content").select("*").eq("is_active", true).maybeSingle();
     setContent(data);
     setIsLoading(false);
+  };
+
+  const handleImageUpload = async (file: File) => {
+    if (!file || !content) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      toast({ variant: "destructive", title: "Formato inválido", description: "Use JPG, PNG ou WebP." });
+      return;
+    }
+
+    setIsUploading(true);
+    try {
+      const fileExt = file.name.split(".").pop();
+      const fileName = `hero-${Date.now()}.${fileExt}`;
+      const filePath = `hero/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("site-images")
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data: urlData } = supabase.storage
+        .from("site-images")
+        .getPublicUrl(filePath);
+
+      setContent({ ...content, background_image_url: urlData.publicUrl });
+      toast({ title: "Imagem enviada!" });
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast({ variant: "destructive", title: "Erro no upload" });
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const handleSave = async () => {
@@ -56,6 +94,65 @@ const AdminHero = () => {
       </div>
 
       <div className="bg-card rounded-xl border p-6 space-y-4">
+        {/* Image Upload Section */}
+        <div className="space-y-2">
+          <Label>Imagem de Fundo</Label>
+          <input
+            type="file"
+            ref={fileInputRef}
+            className="hidden"
+            accept="image/jpeg,image/png,image/webp"
+            onChange={(e) => e.target.files?.[0] && handleImageUpload(e.target.files[0])}
+          />
+          
+          {content.background_image_url ? (
+            <div className="relative">
+              <img
+                src={content.background_image_url}
+                alt="Preview"
+                className="w-full h-48 object-cover rounded-lg border"
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isUploading}
+                >
+                  <Upload className="w-4 h-4 mr-1" />
+                  Trocar
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="destructive"
+                  onClick={() => setContent({ ...content, background_image_url: "" })}
+                >
+                  <X className="w-4 h-4 mr-1" />
+                  Remover
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isUploading}
+              className="w-full h-32 border-2 border-dashed border-muted-foreground/25 rounded-lg flex flex-col items-center justify-center gap-2 hover:border-primary/50 hover:bg-muted/50 transition-colors"
+            >
+              {isUploading ? (
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary" />
+              ) : (
+                <>
+                  <Upload className="w-6 h-6 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">Clique para enviar imagem de fundo</span>
+                </>
+              )}
+            </button>
+          )}
+        </div>
+
         <div>
           <Label>Título Principal</Label>
           <Input value={content.title} onChange={(e) => setContent({ ...content, title: e.target.value })} />

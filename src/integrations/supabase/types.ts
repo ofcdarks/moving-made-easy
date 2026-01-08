@@ -20,6 +20,7 @@ export type Database = {
           created_at: string
           description: string | null
           id: string
+          image_url: string | null
           is_active: boolean | null
           moves_completed: string | null
           satisfaction_rate: string | null
@@ -33,6 +34,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          image_url?: string | null
           is_active?: boolean | null
           moves_completed?: string | null
           satisfaction_rate?: string | null
@@ -46,6 +48,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          image_url?: string | null
           is_active?: boolean | null
           moves_completed?: string | null
           satisfaction_rate?: string | null
@@ -124,6 +127,7 @@ export type Database = {
       }
       hero_content: {
         Row: {
+          background_image_url: string | null
           created_at: string
           cta_link: string | null
           cta_text: string | null
@@ -135,6 +139,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          background_image_url?: string | null
           created_at?: string
           cta_link?: string | null
           cta_text?: string | null
@@ -146,6 +151,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          background_image_url?: string | null
           created_at?: string
           cta_link?: string | null
           cta_text?: string | null
