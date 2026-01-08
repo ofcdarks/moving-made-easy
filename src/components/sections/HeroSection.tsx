@@ -27,12 +27,12 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Image */}
+      {/* Background Image with slow zoom animation */}
       <div className="absolute inset-0 z-0">
         <img
           src={backgroundImage}
           alt="Caminhão LF Fretes"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover animate-slow-zoom"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/85 to-secondary/50" />
       </div>
