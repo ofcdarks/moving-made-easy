@@ -1,4 +1,7 @@
 import { CheckCircle, Users, Award, Truck } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
 import truckLoading from "@/assets/truck-loading.jpeg";
 
 const features = [
@@ -10,13 +13,27 @@ const features = [
   "Atendimento personalizado",
 ];
 
-const stats = [
-  { icon: Truck, value: "500+", label: "Mudanças realizadas" },
-  { icon: Users, value: "1000+", label: "Clientes satisfeitos" },
-  { icon: Award, value: "10+", label: "Anos de experiência" },
-];
-
 const AboutSection = () => {
+  const { data: aboutContent, isLoading } = useQuery({
+    queryKey: ["about-content"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("about_content")
+        .select("*")
+        .eq("is_active", true)
+        .maybeSingle();
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const stats = [
+    { icon: Truck, value: aboutContent?.moves_completed || "500+", label: "Mudanças realizadas" },
+    { icon: Users, value: aboutContent?.satisfaction_rate || "1000+", label: "Clientes satisfeitos" },
+    { icon: Award, value: aboutContent?.years_experience || "10+", label: "Anos de experiência" },
+  ];
+
   return (
     <section id="sobre" className="py-20 lg:py-32">
       <div className="container mx-auto px-4">
@@ -33,7 +50,7 @@ const AboutSection = () => {
             {/* Floating Card */}
             <div className="absolute -bottom-6 -right-6 bg-card rounded-xl p-6 shadow-lg max-w-[200px] border border-border">
               <div className="text-4xl font-display font-black text-primary mb-2">
-                10+
+                {aboutContent?.years_experience || "10+"}
               </div>
               <p className="text-sm text-muted-foreground">
                 Anos de experiência no mercado
@@ -46,15 +63,29 @@ const AboutSection = () => {
             <span className="inline-block text-primary font-medium text-sm uppercase tracking-wider mb-4">
               Sobre nós
             </span>
-            <h2 className="font-display font-black text-3xl md:text-4xl lg:text-5xl mb-6">
-              Confiança e <span className="text-gradient-red">Qualidade</span> em cada entrega
-            </h2>
-            <p className="text-muted-foreground mb-8 leading-relaxed">
-              A LF Fretes e Mudanças nasceu com o objetivo de oferecer um serviço 
-              diferenciado no transporte de cargas e mudanças. Com mais de uma década 
-              de experiência, nossa equipe está preparada para cuidar dos seus pertences 
-              com todo o cuidado e profissionalismo que você merece.
-            </p>
+            
+            {isLoading ? (
+              <>
+                <Skeleton className="h-12 w-full mb-6" />
+                <Skeleton className="h-4 w-full mb-2" />
+                <Skeleton className="h-4 w-full mb-2" />
+                <Skeleton className="h-4 w-3/4 mb-8" />
+              </>
+            ) : (
+              <>
+                <h2 className="font-display font-black text-3xl md:text-4xl lg:text-5xl mb-6">
+                  {aboutContent?.title || "Confiança e"}{" "}
+                  <span className="text-gradient-red">
+                    {aboutContent?.subtitle || "Qualidade"}
+                  </span>{" "}
+                  em cada entrega
+                </h2>
+                <p className="text-muted-foreground mb-8 leading-relaxed">
+                  {aboutContent?.description || 
+                    "A LF Fretes e Mudanças nasceu com o objetivo de oferecer um serviço diferenciado no transporte de cargas e mudanças. Com mais de uma década de experiência, nossa equipe está preparada para cuidar dos seus pertences com todo o cuidado e profissionalismo que você merece."}
+                </p>
+              </>
+            )}
 
             {/* Features List */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
