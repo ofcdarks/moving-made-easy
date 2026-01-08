@@ -8,6 +8,7 @@ import truckAerial from "@/assets/truck-aerial.jpg";
 import truckUrban from "@/assets/truck-urban.jpg";
 import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
 import { Skeleton } from "@/components/ui/skeleton";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 
@@ -97,21 +98,21 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Images with crossfade and Ken Burns effect */}
+      {/* Background Images with smooth crossfade and Ken Burns effect */}
       <div className="absolute inset-0 z-0">
         {allImages.map((img, index) => (
           <div
-            key={img}
-            className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
+            key={`${img}-${index}`}
+            className={`absolute inset-0 transition-opacity duration-[3000ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
               index === currentImageIndex ? "opacity-100" : "opacity-0"
             }`}
           >
             <img
               src={img}
               alt="Caminhão LF Fretes"
-              className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[8000ms] ease-out ${
+              className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[10000ms] ease-linear ${
                 index === currentImageIndex 
-                  ? "scale-110 animate-ken-burns" 
+                  ? "scale-110" 
                   : "scale-100"
               }`}
             />
@@ -182,7 +183,7 @@ const HeroSection = () => {
               <div key={index} className="text-center">
                 <stat.icon className="w-8 h-8 text-primary mx-auto mb-2" />
                 <p className="text-2xl md:text-3xl font-display font-bold text-primary-foreground">
-                  {stat.value}
+                  <AnimatedCounter value={stat.value} duration={2000} />
                 </p>
                 <p className="text-sm text-secondary-foreground/70">{stat.label}</p>
               </div>
