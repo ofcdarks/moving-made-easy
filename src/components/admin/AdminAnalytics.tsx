@@ -22,6 +22,11 @@ interface AnalyticsStats {
   page_views: number;
 }
 
+interface TopPage {
+  page_path: string;
+  views: number;
+}
+
 const AdminAnalytics = () => {
   const [settings, setSettings] = useState<AnalyticsSetting[]>([]);
   const [stats, setStats] = useState<AnalyticsStats>({
@@ -30,6 +35,7 @@ const AdminAnalytics = () => {
     visitors_month: 0,
     page_views: 0,
   });
+  const [topPages, setTopPages] = useState<TopPage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -38,6 +44,7 @@ const AdminAnalytics = () => {
   useEffect(() => {
     fetchSettings();
     fetchStats();
+    fetchTopPages();
   }, []);
 
   const fetchSettings = async () => {
@@ -108,6 +115,41 @@ const AdminAnalytics = () => {
     }
   };
 
+  const fetchTopPages = async () => {
+    try {
+      const startOfMonth = new Date();
+      startOfMonth.setDate(startOfMonth.getDate() - 30);
+
+      const { data } = await supabase
+        .from("page_views")
+        .select("page_path")
+        .gte("created_at", startOfMonth.toISOString());
+
+      if (data) {
+        // Count views per page
+        const pageCounts: Record<string, number> = {};
+        data.forEach((view) => {
+          pageCounts[view.page_path] = (pageCounts[view.page_path] || 0) + 1;
+        });
+
+        // Convert to array and sort
+        const sortedPages = Object.entries(pageCounts)
+          .map(([page_path, views]) => ({ page_path, views }))
+          .sort((a, b) => b.views - a.views)
+          .slice(0, 10);
+
+        setTopPages(sortedPages);
+      }
+    } catch (error) {
+      console.error("Error fetching top pages:", error);
+    }
+  };
+
+  const refreshAll = () => {
+    fetchStats();
+    fetchTopPages();
+  };
+
   const handleChange = (key: string, value: string) => {
     setSettings((prev) =>
       prev.map((s) => (s.key === key ? { ...s, value } : s))
@@ -142,7 +184,7 @@ const AdminAnalytics = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-display font-bold">Analytics e Rastreamento</h2>
-        <Button variant="outline" size="sm" onClick={fetchStats} disabled={isRefreshing}>
+        <Button variant="outline" size="sm" onClick={refreshAll} disabled={isRefreshing}>
           <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`} />
           Atualizar
         </Button>
@@ -194,6 +236,49 @@ const AdminAnalytics = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Top Pages */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <BarChart3 className="h-5 w-5 text-primary" />
+            <CardTitle>Páginas Mais Visitadas</CardTitle>
+          </div>
+          <p className="text-sm text-muted-foreground">Últimos 30 dias</p>
+        </CardHeader>
+        <CardContent>
+          {topPages.length === 0 ? (
+            <div className="text-center py-8 text-muted-foreground">
+              <Eye className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <p>Nenhuma visualização registrada ainda.</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {topPages.map((page, index) => {
+                const maxViews = topPages[0]?.views || 1;
+                const percentage = (page.views / maxViews) * 100;
+                return (
+                  <div key={page.page_path} className="space-y-1">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="font-medium flex items-center gap-2">
+                        <span className="text-muted-foreground w-5">{index + 1}.</span>
+                        {getPageName(page.page_path)}
+                      </span>
+                      <span className="text-muted-foreground">{page.views} visualizações</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-primary rounded-full transition-all duration-500"
+                        style={{ width: `${percentage}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Analytics Configuration */}
       <Card>
@@ -289,6 +374,22 @@ const getHelpText = (key: string): string => {
     default:
       return "";
   }
+};
+
+const getPageName = (path: string): string => {
+  const pageNames: Record<string, string> = {
+    "/": "Página Inicial",
+    "/servicos": "Serviços",
+    "/sobre": "Sobre Nós",
+    "/galeria": "Galeria",
+    "/contato": "Contato",
+    "/orcamento": "Orçamento",
+    "/politica-privacidade": "Política de Privacidade",
+    "/politica-cookies": "Política de Cookies",
+    "/admin": "Admin",
+    "/admin/login": "Login Admin",
+  };
+  return pageNames[path] || path;
 };
 
 export default AdminAnalytics;
