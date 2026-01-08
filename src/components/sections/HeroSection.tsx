@@ -13,7 +13,8 @@ const WHATSAPP_TEXT = "Olá! Gostaria de solicitar um orçamento.";
 const DEFAULT_PHRASES = [
   "Segurança e Pontualidade",
   "Cuidado e Profissionalismo", 
-  "Confiança e Qualidade",
+  "Confiança e Agilidade",
+  "Eficiência e Qualidade",
 ];
 
 const DEFAULT_IMAGES = [truckSunset, truckAerial];
@@ -128,7 +129,7 @@ const HeroSection = () => {
               </div>
               
               <h1 className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-6 animate-slide-up animate-delay-100">
-                Mudanças e Fretes com{" "}
+                Soluções Logísticas com{" "}
                 <span className="text-gradient-orange">
                   {displayedText}
                   <span className="animate-pulse">|</span>
