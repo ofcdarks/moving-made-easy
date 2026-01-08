@@ -32,7 +32,7 @@ const AboutSection = () => {
 
   const stats = [
     { icon: Truck, value: aboutContent?.moves_completed || "500+", label: "Mudanças realizadas" },
-    { icon: Users, value: aboutContent?.satisfaction_rate || "1000+", label: "Clientes satisfeitos" },
+    { icon: Users, value: aboutContent?.clients_satisfied || "1000+", label: "Clientes satisfeitos" },
     { icon: Award, value: aboutContent?.years_experience || "10+", label: "Anos de experiência" },
   ];
 
