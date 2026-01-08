@@ -1,5 +1,5 @@
 import { 
-  Home, Building2, Truck, Package, Wrench, Box, Share2, Briefcase, 
+  Home, Building2, Truck, Package, Share2, Briefcase, 
   ArrowDownUp, CalendarCheck 
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -56,7 +56,7 @@ const ServicesSection = () => {
             O que fazemos
           </span>
           <h2 className="font-display font-black text-3xl md:text-4xl lg:text-5xl mb-4">
-            Nossos <span className="text-gradient-red">Serviços</span>
+            Nossos <span className="text-gradient-orange">Serviços</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Soluções logísticas completas para sua mudança ou frete, 
@@ -70,7 +70,7 @@ const ServicesSection = () => {
               key={index}
               className="group bg-card rounded-2xl p-6 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="w-12 h-12 bg-brand-red-light rounded-xl flex items-center justify-center mb-4 group-hover:bg-gradient-red group-hover:scale-110 transition-all duration-300">
+              <div className="w-12 h-12 bg-brand-orange-light rounded-xl flex items-center justify-center mb-4 group-hover:bg-gradient-orange group-hover:scale-110 transition-all duration-300">
                 <service.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
               </div>
               <h3 className="font-display font-bold text-lg mb-2">

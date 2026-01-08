@@ -1,15 +1,17 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
-import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const WHATSAPP_LINK = "https://wa.me/5514996054098?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
 
 const contactInfo = [
   {
     icon: Phone,
     title: "Telefone / WhatsApp",
     value: "(14) 99605-4098",
-    link: "https://wa.me/5514996054098",
+    link: WHATSAPP_LINK,
     action: "Chamar no WhatsApp",
   },
   {
@@ -47,7 +49,7 @@ const Contato = () => {
             <h1 className="font-display font-black text-4xl md:text-5xl text-primary-foreground mb-6">
               Entre em <span className="text-gradient-orange">Contato</span>
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-secondary-foreground/80">
               Estamos prontos para atender você e tirar todas as suas dúvidas
             </p>
           </div>
@@ -61,7 +63,7 @@ const Contato = () => {
             {contactInfo.map((info, index) => (
               <div
                 key={index}
-                className="bg-card rounded-2xl p-8 shadow-card hover:shadow-lg transition-all"
+                className="bg-card rounded-2xl p-8 shadow-card hover:shadow-lg transition-all border border-border"
               >
                 <div className="w-14 h-14 bg-brand-orange-light rounded-xl flex items-center justify-center mb-6">
                   <info.icon className="w-7 h-7 text-primary" />
@@ -98,7 +100,7 @@ const Contato = () => {
               nosso horário de atendimento!
             </p>
             <a
-              href="https://wa.me/5514996054098?text=Olá! Gostaria de solicitar um orçamento."
+              href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -126,7 +128,7 @@ const Contato = () => {
             </div>
             <div className="bg-muted rounded-2xl p-12 flex items-center justify-center">
               <div className="text-center">
-                <MapPin className="w-16 h-16 text-primary/30 mx-auto mb-4" />
+                <Truck className="w-16 h-16 text-primary/30 mx-auto mb-4" />
                 <p className="text-muted-foreground">
                   São Paulo, SP - Atendemos todo o Brasil
                 </p>

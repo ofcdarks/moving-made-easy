@@ -2,6 +2,8 @@ import { ArrowRight, Shield, Clock, Truck, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import truckSunset from "@/assets/truck-sunset.jpeg";
 
+const WHATSAPP_LINK = "https://wa.me/5514996054098?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
+
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -24,7 +26,7 @@ const HeroSection = () => {
           
           <h1 className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-6 animate-slide-up animate-delay-100">
             Sua Mudança em{" "}
-            <span className="text-gradient-red">Boas Mãos</span>
+            <span className="text-gradient-orange">Boas Mãos</span>
           </h1>
           
           <p className="text-lg md:text-xl text-secondary-foreground/80 mb-8 animate-slide-up animate-delay-200">
@@ -34,11 +36,11 @@ const HeroSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-slide-up animate-delay-300">
             <a
-              href="https://wa.me/5514996054098?text=Olá! Gostaria de solicitar um orçamento."
+              href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button size="lg" className="gap-2 bg-gradient-red shadow-red text-lg px-8 py-6">
+              <Button size="lg" className="gap-2 bg-gradient-orange shadow-orange text-lg px-8 py-6">
                 <Phone className="w-5 h-5" />
                 Solicitar Orçamento Grátis
               </Button>

@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { MessageCircle, X, Send, Phone } from "lucide-react";
+import { MessageCircle, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const WHATSAPP_LINK = "https://wa.me/5514996054098?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
 
 const faqs = [
   {
@@ -30,7 +32,7 @@ const ChatWidget = () => {
   const [selectedQuestion, setSelectedQuestion] = useState<number | null>(null);
 
   const handleWhatsApp = () => {
-    window.open("https://wa.me/5514996054098?text=Olá! Gostaria de solicitar um orçamento.", "_blank");
+    window.open(WHATSAPP_LINK, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -38,7 +40,7 @@ const ChatWidget = () => {
       {/* Chat Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-red rounded-full shadow-red flex items-center justify-center hover:scale-110 transition-transform"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-orange rounded-full shadow-orange flex items-center justify-center hover:scale-110 transition-transform"
         aria-label="Abrir chat"
       >
         {isOpen ? (
@@ -102,7 +104,7 @@ const ChatWidget = () => {
           <div className="p-4 border-t border-border">
             <Button
               onClick={handleWhatsApp}
-              className="w-full gap-2 bg-gradient-red shadow-red"
+              className="w-full gap-2 bg-gradient-orange shadow-orange"
             >
               <Phone className="w-4 h-4" />
               Falar com Atendente
