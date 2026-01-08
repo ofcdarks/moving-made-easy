@@ -5,7 +5,7 @@ import ChatWidget from "@/components/ChatWidget";
 import ServiceModal, { ServiceData } from "@/components/ServiceModal";
 import AnimatedCard from "@/components/AnimatedCard";
 import { 
-  Home, Building2, Truck, Package, Wrench, MapPin, Clock, Shield, Phone,
+  Home, Building2, Truck, Package, MapPin, Clock, Shield, Phone,
   CalendarCheck, Briefcase, ArrowDownUp, Share2, Info
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -251,32 +251,32 @@ const services: ServiceData[] = [
     ],
   },
   {
-    icon: Wrench,
-    title: "Montagem e Desmontagem",
-    description: "Nossa equipe é capacitada para montar e desmontar todos os tipos de móveis com cuidado e agilidade.",
-    image: serviceResidential,
+    icon: CalendarCheck,
+    title: "Mudanças para Eventos",
+    description: "Transporte especializado para mudanças de eventos, feiras e exposições com pontualidade e cuidado.",
+    image: serviceEvents,
     features: [
-      "Profissionais capacitados",
-      "Ferramentas adequadas",
-      "Cuidado com acabamentos",
-      "Montagem no destino",
-      "Organização de peças",
-      "Conferência final",
+      "Pontualidade garantida",
+      "Transporte de equipamentos",
+      "Cuidado com materiais delicados",
+      "Atendimento a eventos corporativos",
+      "Transporte de stands e displays",
+      "Logística completa",
     ],
-    fullDescription: "Muitos móveis precisam ser desmontados para transporte seguro. Nossa equipe possui experiência e ferramentas adequadas para desmontar e montar seus móveis preservando a qualidade e integridade de cada peça.",
+    fullDescription: "Sabemos a importância de chegar no horário certo em eventos. Nosso serviço especializado para feiras, exposições e eventos corporativos garante que seu material chegue em perfeitas condições e dentro do prazo estabelecido.",
     benefits: [
-      "Preservação dos móveis",
-      "Profissionais experientes",
-      "Ferramentas profissionais",
-      "Organização das peças",
-      "Montagem no novo endereço",
+      "Pontualidade é prioridade",
+      "Experiência com eventos",
+      "Cuidado com materiais promocionais",
+      "Transporte seguro de equipamentos",
+      "Atendimento personalizado",
     ],
     process: [
-      "Avaliação dos móveis",
-      "Desmontagem cuidadosa",
-      "Organização e identificação das peças",
-      "Transporte seguro",
-      "Montagem completa no destino",
+      "Informe data, local e materiais",
+      "Planejamos a logística do evento",
+      "Orçamento detalhado",
+      "Coleta e transporte seguro",
+      "Entrega no horário acordado",
     ],
   },
 ];
