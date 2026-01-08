@@ -1,8 +1,11 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Camera } from "lucide-react";
+
+// All gallery images
 import truckSunset from "@/assets/truck-sunset.jpeg";
 import truckLoading from "@/assets/truck-loading.jpeg";
 import truckCargo from "@/assets/truck-cargo.jpeg";
@@ -11,33 +14,81 @@ import caminhaoScania from "@/assets/caminhao-scania.jpeg";
 import carretaCarga from "@/assets/carreta-carga.jpeg";
 import caminhaoIveco from "@/assets/caminhao-iveco.jpeg";
 import equipeTrabalhando from "@/assets/equipe-trabalho.jpeg";
+import caminhaoMercedes from "@/assets/caminhao-mercedes.jpeg";
+import caminhaoVolvo from "@/assets/caminhao-volvo.jpeg";
+import equipeCaixas from "@/assets/equipe-caixas.jpeg";
+import caminhaoEmpilhadeira from "@/assets/caminhao-empilhadeira.jpeg";
 
-const defaultImages = [
+const allDefaultImages = [
   { image_url: truckSunset, title: "Caminhão ao pôr do sol", category: "Frota" },
   { image_url: caminhaoScania, title: "Scania 124 420cv", category: "Frota" },
   { image_url: truckLoading, title: "Carregamento seguro", category: "Serviços" },
-  { image_url: carretaCarga, title: "Carreta com carga organizada", category: "Logística" },
+  { image_url: carretaCarga, title: "Carreta com carga", category: "Logística" },
   { image_url: equipeTrabalhando, title: "Equipe em ação", category: "Equipe" },
-  { image_url: caminhaoIveco, title: "Iveco Daily em residência", category: "Frota" },
+  { image_url: caminhaoIveco, title: "Iveco Daily", category: "Frota" },
+  { image_url: caminhaoMercedes, title: "Mercedes-Benz", category: "Frota" },
+  { image_url: caminhaoVolvo, title: "Volvo FH", category: "Frota" },
+  { image_url: truckCargo, title: "Transporte de motos", category: "Serviços" },
+  { image_url: boxesInterior, title: "Caixas organizadas", category: "Serviços" },
+  { image_url: equipeCaixas, title: "Organização", category: "Equipe" },
+  { image_url: caminhaoEmpilhadeira, title: "Carga com empilhadeira", category: "Serviços" },
 ];
 
 const GallerySection = () => {
-  const { data: images, isLoading } = useQuery({
+  const [displayedIndices, setDisplayedIndices] = useState([0, 1, 2, 3, 4, 5]);
+  const [fadingIndex, setFadingIndex] = useState<number | null>(null);
+
+  const { data: dbImages, isLoading } = useQuery({
     queryKey: ["gallery-images"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("gallery_images")
         .select("*")
         .eq("is_active", true)
-        .order("sort_order", { ascending: true })
-        .limit(6);
+        .order("sort_order", { ascending: true });
       
       if (error) throw error;
       return data;
     },
   });
 
-  const displayImages = images && images.length > 0 ? images : defaultImages;
+  const allImages = dbImages && dbImages.length > 0 ? dbImages : allDefaultImages;
+
+  // Rotate images dynamically
+  useEffect(() => {
+    if (allImages.length <= 6) return;
+
+    const interval = setInterval(() => {
+      // Pick a random position to replace
+      const positionToReplace = Math.floor(Math.random() * 6);
+      
+      // Find an image that's not currently displayed
+      const currentlyDisplayed = new Set(displayedIndices);
+      const availableIndices = allImages
+        .map((_, idx) => idx)
+        .filter(idx => !currentlyDisplayed.has(idx));
+      
+      if (availableIndices.length === 0) return;
+
+      const newImageIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+      
+      // Fade out animation
+      setFadingIndex(positionToReplace);
+      
+      setTimeout(() => {
+        setDisplayedIndices(prev => {
+          const newIndices = [...prev];
+          newIndices[positionToReplace] = newImageIndex;
+          return newIndices;
+        });
+        setFadingIndex(null);
+      }, 500);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [allImages.length, displayedIndices]);
+
+  const displayImages = displayedIndices.map(idx => allImages[idx] || allImages[0]);
 
   return (
     <section id="galeria" className="py-20 lg:py-32 bg-gradient-hero relative overflow-hidden">
@@ -76,9 +127,10 @@ const GallerySection = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px] md:auto-rows-[240px]">
             {displayImages.map((image, index) => {
               const isLarge = index === 0 || index === 3;
+              const isFading = fadingIndex === index;
               return (
                 <div
-                  key={'id' in image ? String(image.id) : index}
+                  key={index}
                   className={`group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer ${
                     isLarge ? 'row-span-2' : ''
                   }`}
@@ -86,7 +138,9 @@ const GallerySection = () => {
                   <img
                     src={image.image_url}
                     alt={image.title || "Galeria LF Fretes"}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className={`w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ${
+                      isFading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
+                    }`}
                   />
                   {/* Overlay gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
