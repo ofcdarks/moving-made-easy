@@ -12,9 +12,9 @@ const CTASection = () => {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-display font-black text-3xl md:text-4xl lg:text-5xl text-primary-foreground mb-6">
             Pronto para sua{" "}
-            <span className="text-gradient-orange">mudança?</span>
+            <span className="text-gradient-red">mudança?</span>
           </h2>
-          <p className="text-lg text-muted-foreground mb-10">
+          <p className="text-lg text-secondary-foreground/70 mb-10">
             Entre em contato agora mesmo e solicite seu orçamento gratuito. 
             Nossa equipe está pronta para atender você!
           </p>
@@ -25,20 +25,20 @@ const CTASection = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button size="lg" className="gap-2 bg-gradient-orange shadow-orange text-lg px-8 py-6">
+              <Button size="lg" className="gap-2 bg-gradient-red shadow-red text-lg px-8 py-6">
                 <Phone className="w-5 h-5" />
                 Falar no WhatsApp
               </Button>
             </a>
             <a href="/contato">
-              <Button variant="outline" size="lg" className="gap-2 text-lg px-8 py-6 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+              <Button variant="outline" size="lg" className="gap-2 text-lg px-8 py-6 border-2 border-primary-foreground/50 text-primary-foreground bg-transparent hover:bg-primary-foreground/10">
                 Outras formas de contato
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </a>
           </div>
 
-          <p className="mt-8 text-sm text-muted-foreground">
+          <p className="mt-8 text-sm text-secondary-foreground/60">
             📞 Atendimento de Segunda a Sábado, das 7h às 19h
           </p>
         </div>

@@ -19,20 +19,20 @@ const faqs = [
     answer: "Sim, oferecemos serviço completo de desmontagem e montagem de móveis. Nossa equipe é capacitada para lidar com todos os tipos de mobiliário."
   },
   {
+    question: "O que é mudança compartilhada?",
+    answer: "É uma modalidade econômica onde você divide o espaço do caminhão com outras cargas que seguem o mesmo trajeto, reduzindo significativamente o custo do frete."
+  },
+  {
+    question: "Vocês fazem transporte para feiras e eventos?",
+    answer: "Sim! Oferecemos transporte especializado para feiras, exposições e eventos corporativos, com pontualidade garantida."
+  },
+  {
     question: "Como funciona o agendamento?",
     answer: "Basta entrar em contato pelo WhatsApp ou telefone, informar a data desejada e faremos uma visita técnica gratuita para avaliar o serviço e fornecer um orçamento preciso."
   },
   {
-    question: "Vocês embalam os itens?",
-    answer: "Sim! Oferecemos serviço de embalagem profissional com materiais de qualidade (papelão, plástico bolha, mantas, etc.) para garantir a segurança de todos os seus pertences."
-  },
-  {
     question: "Existe seguro para os itens transportados?",
     answer: "Sim, trabalhamos com seguro de carga para garantir sua tranquilidade. Em caso de qualquer imprevisto, seus pertences estão protegidos."
-  },
-  {
-    question: "Qual o prazo para realização do serviço?",
-    answer: "Trabalhamos com agendamento prévio, mas também atendemos demandas urgentes conforme nossa disponibilidade. Recomendamos agendar com antecedência para garantir a melhor data."
   },
 ];
 
@@ -45,7 +45,7 @@ const FAQSection = () => {
             FAQ
           </span>
           <h2 className="font-display font-black text-3xl md:text-4xl lg:text-5xl mb-4">
-            Perguntas <span className="text-gradient-orange">Frequentes</span>
+            Perguntas <span className="text-gradient-red">Frequentes</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Tire suas dúvidas sobre nossos serviços

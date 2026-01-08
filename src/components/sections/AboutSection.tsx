@@ -31,7 +31,7 @@ const AboutSection = () => {
               />
             </div>
             {/* Floating Card */}
-            <div className="absolute -bottom-6 -right-6 bg-card rounded-xl p-6 shadow-lg max-w-[200px]">
+            <div className="absolute -bottom-6 -right-6 bg-card rounded-xl p-6 shadow-lg max-w-[200px] border border-border">
               <div className="text-4xl font-display font-black text-primary mb-2">
                 10+
               </div>
@@ -47,7 +47,7 @@ const AboutSection = () => {
               Sobre nós
             </span>
             <h2 className="font-display font-black text-3xl md:text-4xl lg:text-5xl mb-6">
-              Confiança e <span className="text-gradient-orange">Qualidade</span> em cada entrega
+              Confiança e <span className="text-gradient-red">Qualidade</span> em cada entrega
             </h2>
             <p className="text-muted-foreground mb-8 leading-relaxed">
               A LF Fretes e Mudanças nasceu com o objetivo de oferecer um serviço 

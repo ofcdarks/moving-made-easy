@@ -7,52 +7,53 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 8%;
+    --foreground: 220 40% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 8%;
+    --card-foreground: 220 40% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 8%;
+    --popover-foreground: 220 40% 13%;
 
-    --primary: 24 95% 53%;
+    --primary: 355 70% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 8%;
+    --secondary: 220 60% 10%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 220 20% 95%;
+    --muted-foreground: 220 15% 45%;
 
-    --accent: 24 95% 53%;
+    --accent: 355 70% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 24 95% 53%;
+    --border: 220 20% 88%;
+    --input: 220 20% 88%;
+    --ring: 355 70% 50%;
 
     --radius: 0.75rem;
 
-    /* Custom tokens */
-    --brand-dark: 0 0% 8%;
-    --brand-orange: 24 95% 53%;
-    --brand-orange-light: 24 100% 95%;
-    --brand-gray: 0 0% 45%;
-    --brand-light: 0 0% 98%;
+    /* Custom brand tokens */
+    --brand-navy: 220 60% 10%;
+    --brand-navy-light: 220 50% 15%;
+    --brand-red: 355 70% 50%;
+    --brand-red-light: 355 100% 95%;
+    --brand-gray: 220 15% 45%;
+    --brand-light: 220 20% 98%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 15%) 100%);
-    --gradient-orange: linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(30 100% 45%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(220 60% 10%) 0%, hsl(220 50% 18%) 100%);
+    --gradient-red: linear-gradient(135deg, hsl(355 70% 50%) 0%, hsl(20 90% 50%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(220 20% 98%) 100%);
 
     /* Shadows */
-    --shadow-sm: 0 2px 8px -2px hsl(0 0% 0% / 0.1);
-    --shadow-md: 0 8px 24px -8px hsl(0 0% 0% / 0.15);
-    --shadow-lg: 0 16px 48px -12px hsl(0 0% 0% / 0.2);
-    --shadow-orange: 0 8px 24px -8px hsl(24 95% 53% / 0.4);
+    --shadow-sm: 0 2px 8px -2px hsl(220 60% 10% / 0.1);
+    --shadow-md: 0 8px 24px -8px hsl(220 60% 10% / 0.15);
+    --shadow-lg: 0 16px 48px -12px hsl(220 60% 10% / 0.2);
+    --shadow-red: 0 8px 24px -8px hsl(355 70% 50% / 0.4);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -65,33 +66,33 @@
   }
 
   .dark {
-    --background: 0 0% 8%;
+    --background: 220 60% 10%;
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 12%;
+    --card: 220 50% 12%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 12%;
+    --popover: 220 50% 12%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 24 95% 53%;
+    --primary: 355 70% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 15%;
+    --secondary: 220 40% 18%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 220 40% 18%;
+    --muted-foreground: 220 15% 65%;
 
-    --accent: 24 95% 53%;
+    --accent: 355 70% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 24 95% 53%;
+    --border: 220 40% 20%;
+    --input: 220 40% 20%;
+    --ring: 355 70% 50%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -124,25 +125,25 @@
 }
 
 @layer utilities {
-  .text-gradient-orange {
+  .text-gradient-red {
     @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-orange);
+    background-image: var(--gradient-red);
   }
 
   .bg-gradient-hero {
     background: var(--gradient-hero);
   }
 
-  .bg-gradient-orange {
-    background: var(--gradient-orange);
+  .bg-gradient-red {
+    background: var(--gradient-red);
   }
 
   .shadow-card {
     box-shadow: var(--shadow-md);
   }
 
-  .shadow-orange {
-    box-shadow: var(--shadow-orange);
+  .shadow-red {
+    box-shadow: var(--shadow-red);
   }
 
   .animate-float {

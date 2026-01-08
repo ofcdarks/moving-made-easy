@@ -20,8 +20,8 @@ const faqs = [
     answer: "Basta entrar em contato pelo WhatsApp, informar a data desejada e faremos uma visita técnica gratuita para orçamento."
   },
   {
-    question: "Vocês embalam os itens?",
-    answer: "Sim! Temos serviço de embalagem profissional para garantir a segurança de todos os seus pertences."
+    question: "O que é mudança compartilhada?",
+    answer: "É uma modalidade onde você divide o frete com outras pessoas, reduzindo significativamente o custo. Ideal para pequenos volumes."
   },
 ];
 
@@ -38,7 +38,7 @@ const ChatWidget = () => {
       {/* Chat Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-orange rounded-full shadow-orange flex items-center justify-center hover:scale-110 transition-transform"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-red rounded-full shadow-red flex items-center justify-center hover:scale-110 transition-transform"
         aria-label="Abrir chat"
       >
         {isOpen ? (
@@ -52,11 +52,11 @@ const ChatWidget = () => {
       {isOpen && (
         <div className="fixed bottom-24 right-6 z-50 w-[340px] max-w-[calc(100vw-3rem)] bg-background rounded-2xl shadow-lg border border-border overflow-hidden animate-slide-up">
           {/* Header */}
-          <div className="bg-gradient-orange p-4">
+          <div className="bg-gradient-hero p-4">
             <h3 className="text-primary-foreground font-display font-bold text-lg">
               Olá! 👋
             </h3>
-            <p className="text-primary-foreground/90 text-sm">
+            <p className="text-secondary-foreground/70 text-sm">
               Como podemos ajudar?
             </p>
           </div>
@@ -102,7 +102,7 @@ const ChatWidget = () => {
           <div className="p-4 border-t border-border">
             <Button
               onClick={handleWhatsApp}
-              className="w-full gap-2 bg-gradient-orange shadow-orange"
+              className="w-full gap-2 bg-gradient-red shadow-red"
             >
               <Phone className="w-4 h-4" />
               Falar com Atendente

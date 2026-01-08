@@ -20,7 +20,7 @@ const GallerySection = () => {
             Nosso trabalho
           </span>
           <h2 className="font-display font-black text-3xl md:text-4xl lg:text-5xl mb-4">
-            <span className="text-gradient-orange">Galeria</span> de Fotos
+            <span className="text-gradient-red">Galeria</span> de Fotos
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Veja alguns registros do nosso trabalho e da nossa frota pronta para atender você.
@@ -38,7 +38,7 @@ const GallerySection = () => {
                 alt={image.alt}
                 className="w-full h-[300px] object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           ))}
         </div>

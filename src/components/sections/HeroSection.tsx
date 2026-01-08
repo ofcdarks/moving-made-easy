@@ -12,22 +12,22 @@ const HeroSection = () => {
           alt="Caminhão LF Fretes"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/80 to-brand-dark/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/85 to-secondary/50" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 mb-6 animate-slide-up">
+          <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 rounded-full px-4 py-2 mb-6 animate-slide-up">
             <Shield className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Transporte Seguro e Confiável</span>
+            <span className="text-sm font-medium text-primary">Soluções Logísticas Completas</span>
           </div>
           
           <h1 className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-6 animate-slide-up animate-delay-100">
             Sua Mudança em{" "}
-            <span className="text-gradient-orange">Boas Mãos</span>
+            <span className="text-gradient-red">Boas Mãos</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 animate-slide-up animate-delay-200">
+          <p className="text-lg md:text-xl text-secondary-foreground/80 mb-8 animate-slide-up animate-delay-200">
             Fretes e mudanças com profissionalismo, cuidado e pontualidade.
             Atendemos residências e empresas em todo o Brasil.
           </p>
@@ -38,7 +38,7 @@ const HeroSection = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button size="lg" className="gap-2 bg-gradient-orange shadow-orange text-lg px-8 py-6">
+              <Button size="lg" className="gap-2 bg-gradient-red shadow-red text-lg px-8 py-6">
                 <Phone className="w-5 h-5" />
                 Solicitar Orçamento Grátis
               </Button>
@@ -63,7 +63,7 @@ const HeroSection = () => {
                 <p className="text-2xl md:text-3xl font-display font-bold text-primary-foreground">
                   {stat.value}
                 </p>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
+                <p className="text-sm text-secondary-foreground/70">{stat.label}</p>
               </div>
             ))}
           </div>

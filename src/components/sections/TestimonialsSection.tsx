@@ -30,7 +30,7 @@ const TestimonialsSection = () => {
             Depoimentos
           </span>
           <h2 className="font-display font-black text-3xl md:text-4xl lg:text-5xl mb-4">
-            O que nossos <span className="text-gradient-orange">clientes</span> dizem
+            O que nossos <span className="text-gradient-red">clientes</span> dizem
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             A satisfação dos nossos clientes é nossa maior recompensa.
@@ -41,7 +41,7 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-card rounded-2xl p-8 shadow-card hover:shadow-lg transition-all duration-300"
+              className="bg-card rounded-2xl p-8 shadow-card hover:shadow-lg transition-all duration-300 border border-border"
             >
               {/* Stars */}
               <div className="flex gap-1 mb-4">
