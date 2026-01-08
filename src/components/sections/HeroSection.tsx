@@ -3,13 +3,9 @@ import { ArrowRight, Shield, Clock, Truck, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import caminhaoScania from "@/assets/caminhao-scania.jpeg";
 import equipeTrabalhando from "@/assets/equipe-trabalho.jpeg";
 import caminhaoMercedes from "@/assets/caminhao-mercedes.jpeg";
-import caminhaoEmpilhadeira from "@/assets/caminhao-empilhadeira.jpeg";
-import equipeEmbalando from "@/assets/equipe-embalando.jpeg";
-import equipePosando from "@/assets/equipe-posando.jpeg";
-import equipeCaixas from "@/assets/equipe-caixas.jpeg";
-import caminhaoVwConstellation from "@/assets/caminhao-vw-constellation.jpeg";
 import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
 import { Skeleton } from "@/components/ui/skeleton";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -23,7 +19,8 @@ const DEFAULT_PHRASES = [
   "Eficiência e Qualidade",
 ];
 
-const DEFAULT_IMAGES = [equipeTrabalhando, equipeEmbalando, equipeCaixas, equipePosando, caminhaoMercedes, caminhaoVwConstellation, caminhaoEmpilhadeira];
+// Apenas 3 melhores fotos
+const DEFAULT_IMAGES = [caminhaoScania, equipeTrabalhando, caminhaoMercedes];
 
 const HeroSection = () => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -89,13 +86,13 @@ const HeroSection = () => {
     return () => clearTimeout(timeout);
   }, [displayedText, isDeleting, currentPhraseIndex, phrases, typingSpeed, deleteSpeed]);
 
-  // Image rotation effect
+  // Image rotation effect - transição mais lenta e suave
   useEffect(() => {
     if (allImages.length <= 1) return;
     
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
-    }, 8000);
+    }, 6000); // 6 segundos por imagem
 
     return () => clearInterval(interval);
   }, [allImages.length]);
