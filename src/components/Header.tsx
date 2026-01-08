@@ -33,19 +33,19 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 safe-area-inset ${
         isScrolled
           ? "bg-background/95 backdrop-blur-md shadow-card"
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-4">
-        <nav className="flex items-center justify-between h-20">
+      <div className="container mx-auto px-4 sm:px-6">
+        <nav className="flex items-center justify-between h-16 sm:h-20">
           <Link to="/" className="flex items-center">
             <img 
               src={logoFull} 
               alt="LF Fretes e Mudanças" 
-              className={`h-10 md:h-12 w-auto transition-all duration-300 ${
+              className={`h-8 sm:h-10 md:h-12 w-auto transition-all duration-300 ${
                 isScrolled ? "" : "brightness-0 invert"
               }`}
             />
@@ -101,39 +101,59 @@ const Header = () => {
         </nav>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-20 left-0 right-0 bg-background border-b border-border animate-slide-in-right">
-            <ul className="flex flex-col py-4">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    to={link.href}
-                    className={`block px-4 py-3 text-base font-medium transition-colors hover:bg-muted ${
-                      isActive(link.href) ? "text-primary" : "text-foreground"
-                    }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-              <li className="px-4 pt-4">
-                <a
-                  href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    openWhatsApp(WHATSAPP_TEXT);
-                  }}
+        <div 
+          className={`lg:hidden fixed inset-x-0 top-16 sm:top-20 bottom-0 bg-background/98 backdrop-blur-md transition-all duration-300 ${
+            isMobileMenuOpen 
+              ? "opacity-100 pointer-events-auto" 
+              : "opacity-0 pointer-events-none"
+          }`}
+        >
+          <ul className="flex flex-col py-4 h-full overflow-y-auto">
+            {navLinks.map((link, index) => (
+              <li 
+                key={link.href}
+                className={`transform transition-all duration-300 ${
+                  isMobileMenuOpen 
+                    ? "translate-x-0 opacity-100" 
+                    : "translate-x-4 opacity-0"
+                }`}
+                style={{ transitionDelay: isMobileMenuOpen ? `${index * 50}ms` : '0ms' }}
+              >
+                <Link
+                  to={link.href}
+                  className={`block px-6 py-4 text-lg font-medium transition-colors active:bg-muted ${
+                    isActive(link.href) ? "text-primary bg-primary/5" : "text-foreground"
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <Button variant="default" className="w-full gap-2 bg-gradient-orange">
-                    <Phone className="w-4 h-4" />
-                    Orçamento Grátis
-                  </Button>
-                </a>
+                  {link.label}
+                </Link>
               </li>
-            </ul>
-          </div>
-        )}
+            ))}
+            <li 
+              className={`px-4 pt-6 mt-auto pb-safe transform transition-all duration-300 ${
+                isMobileMenuOpen 
+                  ? "translate-y-0 opacity-100" 
+                  : "translate-y-4 opacity-0"
+              }`}
+              style={{ transitionDelay: isMobileMenuOpen ? `${navLinks.length * 50}ms` : '0ms' }}
+            >
+              <a
+                href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openWhatsApp(WHATSAPP_TEXT);
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                <Button variant="default" size="lg" className="w-full gap-2 bg-gradient-orange py-6 text-base">
+                  <Phone className="w-5 h-5" />
+                  Solicitar Orçamento Grátis
+                </Button>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </header>
   );
