@@ -136,7 +136,24 @@ const Header = () => {
               : "translate-x-full"
           }`}
         >
-          <div className="flex flex-col h-full pt-20 pb-6">
+          <div className="flex flex-col h-full pb-6">
+            {/* Logo inside mobile menu */}
+            <div className="flex items-center justify-between px-4 py-4 border-b border-border">
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
+                <img 
+                  src={logoFull} 
+                  alt="LF Fretes e Mudanças" 
+                  className="h-10 w-auto"
+                />
+              </Link>
+              <button
+                className="p-2 rounded-lg text-foreground hover:bg-muted transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Fechar menu"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
             {/* Navigation Links */}
             <ul className="flex-1 px-4 space-y-1 overflow-y-auto">
               {navLinks.map((link, index) => {
