@@ -118,7 +118,7 @@ const PoliticaPrivacidade = () => {
                 <div className="mt-4 p-4 bg-muted rounded-lg">
                   <p className="text-foreground font-medium">LF Fretes e Mudanças</p>
                   <p className="text-muted-foreground">E-mail: contato@fretesembauru.com.br</p>
-                  <p className="text-muted-foreground">Telefone: (14) 98834-0448</p>
+                  <p className="text-muted-foreground">Telefone: (14) 99605-4098</p>
                   <p className="text-muted-foreground">Bauru, SP</p>
                 </div>
               </div>
