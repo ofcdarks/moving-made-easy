@@ -18,6 +18,11 @@ import caminhaoMercedes from "@/assets/caminhao-mercedes.jpeg";
 import caminhaoVolvo from "@/assets/caminhao-volvo.jpeg";
 import equipeCaixas from "@/assets/equipe-caixas.jpeg";
 import caminhaoEmpilhadeira from "@/assets/caminhao-empilhadeira.jpeg";
+import cargaPlantas from "@/assets/carga-plantas.jpeg";
+import carregandoBicicleta from "@/assets/carregando-bicicleta.jpeg";
+import cargaEmbalada from "@/assets/carga-embalada.jpeg";
+import funcionarioCaminhao from "@/assets/funcionario-caminhao.jpeg";
+import cargaPaletizada from "@/assets/carga-paletizada.jpeg";
 
 const allDefaultImages = [
   { image_url: truckSunset, title: "Caminhão ao pôr do sol", category: "Frota" },
@@ -32,6 +37,11 @@ const allDefaultImages = [
   { image_url: boxesInterior, title: "Caixas organizadas", category: "Serviços" },
   { image_url: equipeCaixas, title: "Organização", category: "Equipe" },
   { image_url: caminhaoEmpilhadeira, title: "Carga com empilhadeira", category: "Serviços" },
+  { image_url: cargaPlantas, title: "Transporte de plantas", category: "Serviços" },
+  { image_url: carregandoBicicleta, title: "Carregando bicicleta", category: "Serviços" },
+  { image_url: cargaEmbalada, title: "Carga embalada com segurança", category: "Logística" },
+  { image_url: funcionarioCaminhao, title: "Equipe LF Fretes", category: "Equipe" },
+  { image_url: cargaPaletizada, title: "Carga paletizada", category: "Logística" },
 ];
 
 const GallerySection = () => {
@@ -138,6 +148,8 @@ const GallerySection = () => {
                   <img
                     src={image.image_url}
                     alt={image.title || "Galeria LF Fretes"}
+                    loading="lazy"
+                    decoding="async"
                     className={`w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ${
                       isFading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
                     }`}

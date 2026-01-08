@@ -38,6 +38,13 @@ import equipeCarregando from "@/assets/equipe-carregando.jpeg";
 import mudancaResidencial from "@/assets/mudanca-residencial.jpeg";
 import cargaOrganizada from "@/assets/carga-organizada.jpeg";
 
+// Novas imagens
+import cargaPlantas from "@/assets/carga-plantas.jpeg";
+import carregandoBicicleta from "@/assets/carregando-bicicleta.jpeg";
+import cargaEmbalada from "@/assets/carga-embalada.jpeg";
+import funcionarioCaminhao from "@/assets/funcionario-caminhao.jpeg";
+import cargaPaletizada from "@/assets/carga-paletizada.jpeg";
+
 const categories = [
   { id: "all", label: "Todas" },
   { id: "frota", label: "Nossa Frota" },
@@ -66,6 +73,7 @@ const images = [
   { src: equipeCaixas, alt: "Organização de caixas", category: "equipe" },
   { src: equipeCaixas2, alt: "Equipe organizando", category: "equipe" },
   { src: equipeCarregando, alt: "Carregamento de móveis", category: "equipe" },
+  { src: funcionarioCaminhao, alt: "Equipe LF Fretes", category: "equipe" },
   
   // Serviços
   { src: carretaCarga, alt: "Carreta com carga", category: "servicos" },
@@ -77,6 +85,10 @@ const images = [
   { src: boxesInterior, alt: "Caixas organizadas", category: "servicos" },
   { src: mudancaResidencial, alt: "Mudança residencial", category: "servicos" },
   { src: cargaOrganizada, alt: "Carga organizada", category: "servicos" },
+  { src: cargaPlantas, alt: "Transporte de plantas", category: "servicos" },
+  { src: carregandoBicicleta, alt: "Carregando bicicleta", category: "servicos" },
+  { src: cargaEmbalada, alt: "Carga embalada com segurança", category: "servicos" },
+  { src: cargaPaletizada, alt: "Carga paletizada", category: "servicos" },
 ];
 
 const Galeria = () => {
