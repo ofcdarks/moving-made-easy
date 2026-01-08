@@ -8,7 +8,8 @@ import caminhaoMercedes from "@/assets/caminhao-mercedes.jpeg";
 import caminhaoEmpilhadeira from "@/assets/caminhao-empilhadeira.jpeg";
 import equipeEmbalando from "@/assets/equipe-embalando.jpeg";
 import equipePosando from "@/assets/equipe-posando.jpeg";
-import caminhaoVolvo from "@/assets/caminhao-volvo.jpeg";
+import equipeCaixas from "@/assets/equipe-caixas.jpeg";
+import caminhaoVwConstellation from "@/assets/caminhao-vw-constellation.jpeg";
 import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
 import { Skeleton } from "@/components/ui/skeleton";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -22,7 +23,7 @@ const DEFAULT_PHRASES = [
   "Eficiência e Qualidade",
 ];
 
-const DEFAULT_IMAGES = [equipeTrabalhando, equipeEmbalando, equipePosando, caminhaoMercedes, caminhaoVolvo, caminhaoEmpilhadeira];
+const DEFAULT_IMAGES = [equipeTrabalhando, equipeEmbalando, equipeCaixas, equipePosando, caminhaoMercedes, caminhaoVwConstellation, caminhaoEmpilhadeira];
 
 const HeroSection = () => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
