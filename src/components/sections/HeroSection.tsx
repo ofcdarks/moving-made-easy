@@ -23,12 +23,14 @@ const HeroSection = () => {
     },
   });
 
+  const backgroundImage = heroContent?.background_image_url || truckSunset;
+
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src={truckSunset}
+          src={backgroundImage}
           alt="Caminhão LF Fretes"
           className="w-full h-full object-cover"
         />

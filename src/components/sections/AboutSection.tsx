@@ -28,6 +28,8 @@ const AboutSection = () => {
     },
   });
 
+  const aboutImage = aboutContent?.image_url || truckLoading;
+
   const stats = [
     { icon: Truck, value: aboutContent?.moves_completed || "500+", label: "Mudanças realizadas" },
     { icon: Users, value: aboutContent?.satisfaction_rate || "1000+", label: "Clientes satisfeitos" },
@@ -42,7 +44,7 @@ const AboutSection = () => {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-lg">
               <img
-                src={truckLoading}
+                src={aboutImage}
                 alt="Caminhão carregado LF Fretes"
                 className="w-full h-[400px] lg:h-[500px] object-cover"
               />
