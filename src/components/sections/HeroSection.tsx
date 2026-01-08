@@ -3,9 +3,10 @@ import { ArrowRight, Shield, Clock, Truck, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import truckSunset from "@/assets/truck-sunset.jpeg";
-import truckAerial from "@/assets/truck-aerial.jpg";
-import truckUrban from "@/assets/truck-urban.jpg";
+import equipeTrabalhando from "@/assets/equipe-trabalho.jpeg";
+import caminhaoMercedes from "@/assets/caminhao-mercedes.jpeg";
+import caminhaoEmpilhadeira from "@/assets/caminhao-empilhadeira.jpeg";
+import caminhaoRua from "@/assets/caminhao-rua.jpeg";
 import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
 import { Skeleton } from "@/components/ui/skeleton";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -19,7 +20,7 @@ const DEFAULT_PHRASES = [
   "Eficiência e Qualidade",
 ];
 
-const DEFAULT_IMAGES = [truckSunset, truckAerial, truckUrban];
+const DEFAULT_IMAGES = [equipeTrabalhando, caminhaoMercedes, caminhaoEmpilhadeira, caminhaoRua];
 
 const HeroSection = () => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);

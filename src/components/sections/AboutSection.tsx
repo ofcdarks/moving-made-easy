@@ -2,7 +2,7 @@ import { CheckCircle, Users, Award, Truck } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
-import truckLoading from "@/assets/truck-loading.jpeg";
+import equipeCarregando from "@/assets/equipe-carregando.jpeg";
 import AnimatedCounter from "@/components/AnimatedCounter";
 
 const features = [
@@ -29,7 +29,7 @@ const AboutSection = () => {
     },
   });
 
-  const aboutImage = aboutContent?.image_url || truckLoading;
+  const aboutImage = aboutContent?.image_url || equipeCarregando;
 
   const stats = [
     { icon: Truck, value: aboutContent?.moves_completed || "500+", label: "Mudanças realizadas" },
