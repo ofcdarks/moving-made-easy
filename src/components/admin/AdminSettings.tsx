@@ -71,6 +71,7 @@ const AdminSettings = () => {
     general: "Informações Gerais",
     contact: "Contato",
     social: "Redes Sociais",
+    analytics: "Analytics e Rastreamento",
   };
 
   if (isLoading) {
