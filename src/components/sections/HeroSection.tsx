@@ -124,6 +124,8 @@ const HeroSection = () => {
               <img
                 src={img}
                 alt="LF Fretes e Mudanças"
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
                 className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${
                   isActive 
                     ? "scale-105" 

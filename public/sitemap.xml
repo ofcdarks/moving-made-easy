@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
@@ -10,6 +11,10 @@
     <lastmod>2026-01-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://fretesembauru.com.br/og-image.jpg</image:loc>
+      <image:title>LF Fretes e Mudanças - Fretes e Mudanças em Bauru</image:title>
+    </image:image>
   </url>
   
   <!-- Serviços -->
@@ -33,15 +38,15 @@
     <loc>https://fretesembauru.com.br/sobre</loc>
     <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   
   <!-- Galeria -->
   <url>
     <loc>https://fretesembauru.com.br/galeria</loc>
     <lastmod>2026-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   
   <!-- Contato -->
@@ -49,7 +54,7 @@
     <loc>https://fretesembauru.com.br/contato</loc>
     <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   
   <!-- Política de Privacidade -->
