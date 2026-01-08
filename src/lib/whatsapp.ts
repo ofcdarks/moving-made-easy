@@ -1,6 +1,6 @@
 // Link do WhatsApp centralizado
 export const WHATSAPP_LINK = "https://wa.link/ro0fow";
-export const WHATSAPP_PHONE_DISPLAY = "(14) 98834-0448";
+export const WHATSAPP_PHONE_DISPLAY = "(14) 99605-4098";
 
 export const openWhatsApp = (_text?: string) => {
   window.open(WHATSAPP_LINK, "_blank", "noopener,noreferrer");
