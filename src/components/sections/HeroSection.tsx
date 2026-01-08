@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import truckSunset from "@/assets/truck-sunset.jpeg";
 import truckAerial from "@/assets/truck-aerial.jpg";
+import truckUrban from "@/assets/truck-urban.jpg";
 import { buildWhatsAppWebUrl, openWhatsApp } from "@/lib/whatsapp";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -17,7 +18,7 @@ const DEFAULT_PHRASES = [
   "Eficiência e Qualidade",
 ];
 
-const DEFAULT_IMAGES = [truckSunset, truckAerial];
+const DEFAULT_IMAGES = [truckSunset, truckAerial, truckUrban];
 
 const HeroSection = () => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -103,8 +104,10 @@ const HeroSection = () => {
             key={img}
             src={img}
             alt="Caminhão LF Fretes"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 animate-slow-zoom ${
-              index === currentImageIndex ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[2000ms] ease-in-out ${
+              index === currentImageIndex 
+                ? "opacity-100 scale-100" 
+                : "opacity-0 scale-105"
             }`}
           />
         ))}
