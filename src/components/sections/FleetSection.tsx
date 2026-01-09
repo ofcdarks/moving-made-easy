@@ -6,6 +6,7 @@ import vucImage from "@/assets/vuc-frota.jpeg";
 import treQuartosImage from "@/assets/34-frota.jpeg";
 import tocoImage from "@/assets/toco-frota.jpeg";
 import truckImage from "@/assets/truck-frota.jpeg";
+import carretaImage from "@/assets/carreta-frota.jpeg";
 
 const vehicles = [
   {
@@ -44,6 +45,12 @@ const vehicles = [
     description: "Máxima capacidade para mudanças empresariais e cargas pesadas",
     image: truckImage,
   },
+  {
+    name: "Carreta",
+    capacity: "Até 25.000kg",
+    description: "Transporte de grandes volumes para mudanças industriais",
+    image: carretaImage,
+  },
 ];
 
 const FleetSection = () => {
@@ -66,7 +73,7 @@ const FleetSection = () => {
 
         <div
           ref={ref}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4 md:gap-6"
         >
           {vehicles.map((vehicle, index) => (
             <div
