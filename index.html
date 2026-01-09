@@ -3,6 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5" />
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://maps.googleapis.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com data:;
+      img-src 'self' data: blob: https: http:;
+      connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://www.googletagmanager.com https://api.whatsapp.com https://wa.me https://maps.googleapis.com;
+      frame-src 'self' https://www.google.com https://maps.google.com https://www.youtube.com;
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+      upgrade-insecure-requests;
+    " />
+    
+    <!-- Additional Security Headers via Meta Tags -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>LF Soluções Logísticas | Fretes e Mudanças em Bauru, Marília, Jaú e Região</title>
     <meta name="description" content="LF Soluções Logísticas em Bauru: Fretes, mudanças residenciais e comerciais, agenciamento de cargas, carga e descarga. Atendemos Marília, Jaú, Lins, Botucatu e toda região. Orçamento grátis! ☎ (14) 98834-0448" />
     <meta name="keywords" content="frete bauru, mudança bauru, transportadora bauru, carreto bauru, frete marilia, mudança marilia, frete jau, mudança jau, frete lins, mudança botucatu, soluções logísticas bauru, empresa de mudança bauru, caminhão de frete bauru, transporte de móveis bauru, mudança residencial bauru, mudança comercial bauru, frete baú bauru, transporte de cargas bauru, agenciamento de cargas sp, carga e descarga bauru, embalagem profissional mudança, empresa de frete interior sp, LF Fretes, LF Mudanças, LF Soluções Logísticas" />
