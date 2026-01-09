@@ -1,6 +1,9 @@
 import { Truck } from "lucide-react";
 import { useInViewAnimation } from "@/hooks/useInViewAnimation";
 import pickupImage from "@/assets/pickup-frota.jpeg";
+import vanImage from "@/assets/van-frota.jpeg";
+import vucImage from "@/assets/vuc-frota.jpeg";
+import treQuartosImage from "@/assets/34-frota.jpeg";
 
 const vehicles = [
   {
@@ -13,19 +16,19 @@ const vehicles = [
     name: "Van",
     capacity: "Até 1.500kg",
     description: "Perfeita para volumes médios e mudanças residenciais pequenas",
-    image: null,
+    image: vanImage,
   },
   {
     name: "VUC",
     capacity: "Até 3.000kg",
     description: "Veículo Urbano de Carga para entregas em áreas restritas",
-    image: null,
+    image: vucImage,
   },
   {
     name: "3/4",
     capacity: "Até 4.000kg",
     description: "Versatilidade para mudanças residenciais e comerciais",
-    image: null,
+    image: treQuartosImage,
   },
   {
     name: "Toco",
