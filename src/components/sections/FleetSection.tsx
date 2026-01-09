@@ -76,7 +76,7 @@ const vehicles: Vehicle[] = [
   },
   {
     name: "VUC",
-    capacity: "Até 3.000kg",
+    capacity: "Até 1.600kg",
     description: "Veículo Urbano de Carga para entregas em áreas restritas",
     image: vucImage,
     dimensions: "Baú: 4,0m x 2,2m x 2,0m",
