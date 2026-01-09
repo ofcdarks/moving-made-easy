@@ -137,34 +137,36 @@ const Header = () => {
 
         {/* Mobile Menu Panel */}
         <div 
-          className={`lg:hidden fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-background shadow-2xl z-[60] transition-transform duration-300 ease-out ${
+          className={`lg:hidden fixed top-0 right-0 h-full w-[85%] max-w-sm bg-background shadow-2xl z-[60] transition-transform duration-300 ease-out flex flex-col ${
             isMobileMenuOpen 
               ? "translate-x-0" 
               : "translate-x-full"
           }`}
         >
-          <div className="flex flex-col h-full pb-6">
-            {/* Logo inside mobile menu */}
-            <div className="flex items-center justify-between px-4 py-4 border-b border-border">
-              <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-                <img 
-                  src={logoFull} 
-                  alt="LF Fretes e Mudanças" 
-                  className="h-10 w-auto"
-                />
-              </Link>
-              <button
-                className="p-2 rounded-lg text-foreground hover:bg-muted transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-                aria-label="Fechar menu"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            {/* Navigation Links */}
-            <ul className="flex-1 min-h-0 px-4 pt-4 space-y-1 overflow-y-auto">
+          {/* Header with Logo and Close Button */}
+          <div className="flex items-center justify-between px-4 py-4 border-b border-border shrink-0">
+            <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
+              <img 
+                src={logoFull} 
+                alt="LF Fretes e Mudanças" 
+                className="h-10 w-auto"
+              />
+            </Link>
+            <button
+              className="p-2 rounded-lg text-foreground hover:bg-muted transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Fechar menu"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="flex-1 overflow-y-auto px-4 py-6">
+            <ul className="space-y-2">
               {navLinks.map((link, index) => {
                 const Icon = link.icon;
+                const active = isActive(link.href);
                 return (
                   <li 
                     key={link.href}
@@ -178,43 +180,46 @@ const Header = () => {
                     <Link
                       to={link.href}
                       className={`flex items-center gap-4 px-4 py-4 rounded-xl text-base font-medium transition-all ${
-                        isActive(link.href) 
-                          ? "text-primary bg-primary/10" 
+                        active 
+                          ? "text-primary bg-primary/10 border-l-4 border-primary" 
                           : "text-foreground hover:bg-muted"
                       }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      <Icon className={`w-5 h-5 ${isActive(link.href) ? "text-primary" : "text-muted-foreground"}`} />
-                      {link.label}
+                      <Icon className={`w-5 h-5 ${active ? "text-primary" : "text-muted-foreground"}`} />
+                      <span>{link.label}</span>
+                      {active && (
+                        <div className="ml-auto w-2 h-2 rounded-full bg-primary" />
+                      )}
                     </Link>
                   </li>
                 );
               })}
             </ul>
+          </nav>
 
-            {/* CTA Button */}
-            <div 
-              className={`px-4 pt-4 border-t border-border mt-auto transform transition-all duration-300 ${
-                isMobileMenuOpen 
-                  ? "translate-y-0 opacity-100" 
-                  : "translate-y-4 opacity-0"
-              }`}
-              style={{ transitionDelay: isMobileMenuOpen ? `${navLinks.length * 50 + 150}ms` : '0ms' }}
+          {/* CTA Button */}
+          <div 
+            className={`px-4 py-4 border-t border-border shrink-0 transform transition-all duration-300 ${
+              isMobileMenuOpen 
+                ? "translate-y-0 opacity-100" 
+                : "translate-y-4 opacity-0"
+            }`}
+            style={{ transitionDelay: isMobileMenuOpen ? `${navLinks.length * 50 + 150}ms` : '0ms' }}
+          >
+            <a
+              href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
+              onClick={(e) => {
+                e.preventDefault();
+                openWhatsApp(WHATSAPP_TEXT);
+                setIsMobileMenuOpen(false);
+              }}
             >
-              <a
-                href={buildWhatsAppWebUrl(WHATSAPP_TEXT)}
-                onClick={(e) => {
-                  e.preventDefault();
-                  openWhatsApp(WHATSAPP_TEXT);
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                <Button variant="default" size="lg" className="w-full gap-2 bg-gradient-orange py-6 text-base shadow-orange">
-                  <Phone className="w-5 h-5" />
-                  Solicitar Orçamento
-                </Button>
-              </a>
-            </div>
+              <Button variant="default" size="lg" className="w-full gap-2 bg-gradient-orange py-6 text-base shadow-orange">
+                <Phone className="w-5 h-5" />
+                Solicitar Orçamento
+              </Button>
+            </a>
           </div>
         </div>
       </div>
