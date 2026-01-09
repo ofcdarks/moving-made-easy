@@ -160,7 +160,7 @@ const Header = () => {
               </button>
             </div>
             {/* Navigation Links */}
-            <ul className="flex-1 px-4 space-y-1 overflow-y-auto">
+            <ul className="flex-1 px-4 pt-4 space-y-1 overflow-y-auto">
               {navLinks.map((link, index) => {
                 const Icon = link.icon;
                 return (
