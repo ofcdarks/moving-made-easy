@@ -8,7 +8,7 @@
   <!-- Página Principal -->
   <url>
     <loc>https://fretesembauru.com.br/</loc>
-    <lastmod>2026-01-08</lastmod>
+    <lastmod>2026-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -17,26 +17,42 @@
     </image:image>
   </url>
   
-  <!-- Serviços por Cidade - Bauru -->
+  <!-- Serviços -->
+  <url>
+    <loc>https://fretesembauru.com.br/servicos</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Serviços - Mudança Residencial -->
   <url>
     <loc>https://fretesembauru.com.br/servicos#mudanca-residencial</loc>
-    <lastmod>2026-01-08</lastmod>
+    <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   
-  <!-- Serviços -->
+  <!-- Serviços - Mudança Comercial -->
   <url>
-    <loc>https://fretesembauru.com.br/servicos</loc>
-    <lastmod>2026-01-08</lastmod>
+    <loc>https://fretesembauru.com.br/servicos#mudanca-comercial</loc>
+    <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
+  </url>
+  
+  <!-- Serviços - Frete -->
+  <url>
+    <loc>https://fretesembauru.com.br/servicos#frete</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
   
   <!-- Orçamento -->
   <url>
     <loc>https://fretesembauru.com.br/orcamento</loc>
-    <lastmod>2026-01-08</lastmod>
+    <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -44,7 +60,7 @@
   <!-- Sobre -->
   <url>
     <loc>https://fretesembauru.com.br/sobre</loc>
-    <lastmod>2026-01-08</lastmod>
+    <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -52,7 +68,7 @@
   <!-- Galeria -->
   <url>
     <loc>https://fretesembauru.com.br/galeria</loc>
-    <lastmod>2026-01-08</lastmod>
+    <lastmod>2026-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -60,7 +76,7 @@
   <!-- Contato -->
   <url>
     <loc>https://fretesembauru.com.br/contato</loc>
-    <lastmod>2026-01-08</lastmod>
+    <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -68,7 +84,7 @@
   <!-- Política de Privacidade -->
   <url>
     <loc>https://fretesembauru.com.br/politica-privacidade</loc>
-    <lastmod>2026-01-08</lastmod>
+    <lastmod>2026-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
@@ -76,7 +92,7 @@
   <!-- Política de Cookies -->
   <url>
     <loc>https://fretesembauru.com.br/politica-cookies</loc>
-    <lastmod>2026-01-08</lastmod>
+    <lastmod>2026-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
