@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { CalendarIcon, Truck, Send, CheckCircle } from "lucide-react";
+import { CalendarIcon, Truck, Send, CheckCircle, ShieldCheck } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
@@ -36,6 +36,8 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { useFormSecurity } from "@/hooks/useFormSecurity";
+import { sanitizeFormData } from "@/lib/sanitize";
 
 const formSchema = z.object({
   name: z.string().trim().min(2, "Nome deve ter pelo menos 2 caracteres").max(100, "Nome muito longo"),
@@ -64,6 +66,15 @@ const Orcamento = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
 
+  // Security: Honeypot + Rate Limiting
+  const {
+    honeypotProps,
+    isRateLimited,
+    rateLimitMessage,
+    recordAttempt,
+    validateSubmission,
+  } = useFormSecurity('quote-form', { maxAttempts: 5, windowMs: 60000 });
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -78,17 +89,50 @@ const Orcamento = () => {
   });
 
   const onSubmit = async (values: FormValues) => {
+    // Security validation
+    const securityCheck = validateSubmission();
+    if (!securityCheck.isValid) {
+      toast({
+        variant: "destructive",
+        title: "Erro",
+        description: securityCheck.error || "Não foi possível enviar o formulário.",
+      });
+      return;
+    }
+
+    // Record attempt for rate limiting
+    if (!recordAttempt()) {
+      toast({
+        variant: "destructive",
+        title: "Muitas tentativas",
+        description: rateLimitMessage,
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     try {
+      // Sanitize all input data
+      const sanitizedValues = sanitizeFormData(values, {
+        name: 'name',
+        email: 'email',
+        phone: 'phone',
+        service_type: 'text',
+        origin_address: 'address',
+        destination_address: 'address',
+        preferred_date: 'skip',
+        message: 'message',
+      });
+
       const quoteData = {
-        name: values.name,
-        email: values.email,
-        phone: values.phone,
-        service_type: values.service_type,
-        origin_address: values.origin_address,
-        destination_address: values.destination_address,
-        preferred_date: values.preferred_date ? format(values.preferred_date, "yyyy-MM-dd") : null,
-        message: values.message || null,
+        name: sanitizedValues.name,
+        email: sanitizedValues.email,
+        phone: sanitizedValues.phone,
+        service_type: sanitizedValues.service_type,
+        origin_address: sanitizedValues.origin_address,
+        destination_address: sanitizedValues.destination_address,
+        preferred_date: sanitizedValues.preferred_date ? format(sanitizedValues.preferred_date, "yyyy-MM-dd") : null,
+        message: sanitizedValues.message || null,
       };
 
       const { error } = await supabase.from("quote_requests").insert(quoteData);
@@ -98,8 +142,8 @@ const Orcamento = () => {
       // Send email notification (don't block on failure)
       supabase.functions.invoke("notify-quote", {
         body: quoteData,
-      }).catch((err) => {
-        console.error("Email notification failed:", err);
+      }).catch(() => {
+        // Silent fail for email notification
       });
 
       setIsSuccess(true);
@@ -108,8 +152,14 @@ const Orcamento = () => {
         title: "Orçamento enviado!",
         description: "Entraremos em contato em breve.",
       });
-    } catch (error) {
-      console.error("Error submitting quote:", error);
+
+      setIsSuccess(true);
+      form.reset();
+      toast({
+        title: "Orçamento enviado!",
+        description: "Entraremos em contato em breve.",
+      });
+    } catch {
       toast({
         variant: "destructive",
         title: "Erro ao enviar",
@@ -162,10 +212,36 @@ const Orcamento = () => {
                   Enviar Novo Orçamento
                 </Button>
               </div>
+            ) : isRateLimited ? (
+              <div className="bg-card rounded-2xl shadow-card p-8 text-center">
+                <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <ShieldCheck className="w-10 h-10 text-amber-600" />
+                </div>
+                <h2 className="text-2xl font-display font-bold mb-4">
+                  Muitas Tentativas
+                </h2>
+                <p className="text-muted-foreground mb-8">
+                  {rateLimitMessage}
+                </p>
+              </div>
             ) : (
               <div className="bg-card rounded-2xl shadow-card p-6 md:p-8">
+                {/* Security badge */}
+                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6 bg-muted/50 rounded-lg px-3 py-2">
+                  <ShieldCheck className="w-4 h-4 text-green-600" />
+                  <span>Formulário protegido - Seus dados estão seguros</span>
+                </div>
+                
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    {/* Honeypot field - invisible to users, catches bots */}
+                    <input
+                      type="text"
+                      name="website"
+                      placeholder="Website"
+                      {...honeypotProps}
+                    />
+                    
                     <div className="grid md:grid-cols-2 gap-6">
                       <FormField
                         control={form.control}
