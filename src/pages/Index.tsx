@@ -5,6 +5,7 @@ import CookieBanner from "@/components/CookieBanner";
 import HeroSection from "@/components/sections/HeroSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import AboutSection from "@/components/sections/AboutSection";
+import FleetSection from "@/components/sections/FleetSection";
 import GallerySection from "@/components/sections/GallerySection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FAQSection from "@/components/sections/FAQSection";
@@ -18,6 +19,7 @@ const Index = () => {
       <HeroSection />
       <ServicesSection />
       <AboutSection />
+      <FleetSection />
       <GoogleReviewsWidget />
       <GallerySection />
       <TestimonialsSection />
