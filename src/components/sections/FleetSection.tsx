@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Truck, Package, MapPin, Clock, Shield, ChevronRight } from "lucide-react";
 import { useInViewAnimation } from "@/hooks/useInViewAnimation";
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
@@ -204,6 +205,12 @@ const FleetSection = () => {
               align: "start",
               loop: true,
             }}
+            plugins={[
+              Autoplay({
+                delay: 4000,
+                stopOnInteraction: true,
+              }),
+            ]}
             className="w-full"
           >
             <CarouselContent className="-ml-4">
