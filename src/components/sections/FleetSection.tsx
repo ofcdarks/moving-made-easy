@@ -4,6 +4,8 @@ import pickupImage from "@/assets/pickup-frota.jpeg";
 import vanImage from "@/assets/van-frota.jpeg";
 import vucImage from "@/assets/vuc-frota.jpeg";
 import treQuartosImage from "@/assets/34-frota.jpeg";
+import tocoImage from "@/assets/toco-frota.jpeg";
+import truckImage from "@/assets/truck-frota.jpeg";
 
 const vehicles = [
   {
@@ -34,13 +36,13 @@ const vehicles = [
     name: "Toco",
     capacity: "Até 8.000kg",
     description: "Capacidade robusta para grandes volumes e longas distâncias",
-    image: null,
+    image: tocoImage,
   },
   {
     name: "Truck",
     capacity: "Até 14.000kg",
     description: "Máxima capacidade para mudanças empresariais e cargas pesadas",
-    image: null,
+    image: truckImage,
   },
 ];
 
