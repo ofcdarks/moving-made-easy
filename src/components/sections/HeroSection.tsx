@@ -137,16 +137,14 @@ const HeroSection = () => {
             >
               <img
                 src={img}
-                alt="LF Fretes e Mudanças"
+                alt="LF Soluções Logísticas"
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
-                className={`absolute -inset-4 w-[calc(100%+2rem)] h-[calc(100%+2rem)] object-cover object-center transition-transform duration-[10000ms] ease-out ${
-                  isActive 
-                    ? "scale-110" 
-                    : "scale-100"
-                }`}
+                className="absolute -inset-4 w-[calc(100%+2rem)] h-[calc(100%+2rem)] object-cover object-center"
                 style={{
                   minHeight: "calc(100% + 150px)",
+                  transform: isActive ? 'scale(1.15)' : 'scale(1)',
+                  transition: isActive ? `transform ${transitionTime}ms ease-out` : 'transform 0ms',
                 }}
               />
             </div>
