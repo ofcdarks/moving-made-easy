@@ -1,36 +1,43 @@
 import { Truck } from "lucide-react";
 import { useInViewAnimation } from "@/hooks/useInViewAnimation";
+import pickupImage from "@/assets/pickup-frota.jpeg";
 
 const vehicles = [
   {
     name: "Pick-up",
     capacity: "Até 800kg",
     description: "Ideal para pequenas entregas e mudanças compactas",
+    image: pickupImage,
   },
   {
     name: "Van",
     capacity: "Até 1.500kg",
     description: "Perfeita para volumes médios e mudanças residenciais pequenas",
+    image: null,
   },
   {
     name: "VUC",
     capacity: "Até 3.000kg",
     description: "Veículo Urbano de Carga para entregas em áreas restritas",
+    image: null,
   },
   {
     name: "3/4",
     capacity: "Até 4.000kg",
     description: "Versatilidade para mudanças residenciais e comerciais",
+    image: null,
   },
   {
     name: "Toco",
     capacity: "Até 8.000kg",
     description: "Capacidade robusta para grandes volumes e longas distâncias",
+    image: null,
   },
   {
     name: "Truck",
     capacity: "Até 14.000kg",
     description: "Máxima capacidade para mudanças empresariais e cargas pesadas",
+    image: null,
   },
 ];
 
@@ -59,7 +66,7 @@ const FleetSection = () => {
           {vehicles.map((vehicle, index) => (
             <div
               key={vehicle.name}
-              className={`group bg-background rounded-xl p-5 shadow-card hover:shadow-card-hover transition-all duration-300 border border-border/50 hover:border-primary/30 text-center ${
+              className={`group bg-background rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 border border-border/50 hover:border-primary/30 ${
                 isInView
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"
@@ -68,18 +75,32 @@ const FleetSection = () => {
                 transitionDelay: isInView ? `${index * 100}ms` : "0ms",
               }}
             >
-              <div className="w-14 h-14 mx-auto mb-4 bg-gradient-orange rounded-xl flex items-center justify-center shadow-orange group-hover:scale-110 transition-transform duration-300">
-                <Truck className="w-7 h-7 text-white" />
+              {vehicle.image ? (
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img 
+                    src={vehicle.image} 
+                    alt={vehicle.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              ) : (
+                <div className="aspect-[4/3] bg-muted/50 flex items-center justify-center">
+                  <div className="w-14 h-14 bg-gradient-orange rounded-xl flex items-center justify-center shadow-orange group-hover:scale-110 transition-transform duration-300">
+                    <Truck className="w-7 h-7 text-white" />
+                  </div>
+                </div>
+              )}
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-display font-bold text-foreground mb-1">
+                  {vehicle.name}
+                </h3>
+                <p className="text-primary font-semibold text-sm mb-2">
+                  {vehicle.capacity}
+                </p>
+                <p className="text-muted-foreground text-xs leading-relaxed hidden md:block">
+                  {vehicle.description}
+                </p>
               </div>
-              <h3 className="text-lg font-display font-bold text-foreground mb-1">
-                {vehicle.name}
-              </h3>
-              <p className="text-primary font-semibold text-sm mb-2">
-                {vehicle.capacity}
-              </p>
-              <p className="text-muted-foreground text-xs leading-relaxed hidden md:block">
-                {vehicle.description}
-              </p>
             </div>
           ))}
         </div>
