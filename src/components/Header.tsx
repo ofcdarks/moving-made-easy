@@ -46,7 +46,9 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 safe-area-inset ${
-        isScrolled || isMobileMenuOpen
+        isMobileMenuOpen
+          ? "bg-background shadow-card"
+          : isScrolled
           ? "bg-background/95 backdrop-blur-md shadow-card"
           : "bg-transparent"
       }`}
@@ -160,7 +162,7 @@ const Header = () => {
               </button>
             </div>
             {/* Navigation Links */}
-            <ul className="flex-1 px-4 pt-4 space-y-1 overflow-y-auto">
+            <ul className="flex-1 min-h-0 px-4 pt-4 space-y-1 overflow-y-auto">
               {navLinks.map((link, index) => {
                 const Icon = link.icon;
                 return (
