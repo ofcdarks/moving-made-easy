@@ -53,12 +53,17 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 sm:px-6">
         <nav className="flex items-center justify-between h-16 sm:h-20">
-          <Link to="/" className="flex items-center z-50">
+          <Link 
+            to="/" 
+            className={`flex items-center z-50 transition-opacity duration-300 ${
+              isMobileMenuOpen ? "lg:opacity-100 opacity-0 pointer-events-none lg:pointer-events-auto" : "opacity-100"
+            }`}
+          >
             <img 
               src={logoFull} 
               alt="LF Fretes e Mudanças" 
               className={`h-8 sm:h-10 md:h-12 w-auto transition-all duration-300 ${
-                isScrolled || isMobileMenuOpen ? "" : "brightness-0 invert"
+                isScrolled ? "" : "brightness-0 invert"
               }`}
             />
           </Link>
