@@ -1,6 +1,7 @@
-# Robots.txt para LF Soluções Logísticas
-# Fretes e Mudanças em Bauru, Marília, Jaú e Região
+# Robots.txt - LF Soluções Logísticas
+# Site limpo e seguro - Atualizado: 2026-01-10
 # https://fretesembauru.com.br
+# Contato: contato@fretesembauru.com.br | (14) 98834-0448
 
 User-agent: Googlebot
 Allow: /
@@ -19,7 +20,7 @@ Allow: /
 User-agent: *
 Allow: /
 Disallow: /admin
-Disallow: /admin/*
+Disallow: /admin-login
 
-# Sitemap
+# Sitemap atualizado
 Sitemap: https://fretesembauru.com.br/sitemap.xml
